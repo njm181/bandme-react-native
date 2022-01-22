@@ -11,6 +11,7 @@ import {RootStackParams} from '../../navigation/Navigator';
 import {useGoogleSignIn} from '../../hooks/useGoogleSignIn';
 import {useFacebookSignIn} from '../../hooks/useFacebookSignIn';
 import {useEmailSignIn} from '../../hooks/useEmailSignIn';
+import { TextTermsAndConditions } from '../../components/molecules/TextTermsAndConditions';
 
 
 interface Props extends StackScreenProps<RootStackParams, 'WelcomeScreen'> {}
@@ -49,18 +50,7 @@ export const WelcomeScreen = ({navigation}: Props) => {
           iconName= "mail"
         />
       </View>
-
-    {/* //crear component de tyc */}
-      <View style={stylesWelcome.containerTermsConditions}>
-        <Text style={stylesWelcome.termsAndConditionTopPart}>
-          By continue you agree to our
-        </Text>
-        <View style={stylesWelcome.termsAndConditionContainerBottomPart}>
-          <TouchableOpacity onPress={() => console.log('Terms clicked')}><Text style={stylesWelcome.termsAndCondition}>Terms</Text></TouchableOpacity>
-          <Text style={{color: '#9e9e9e'}}> and </Text> 
-          <TouchableOpacity onPress={() => console.log('Privacy policy clicked')}><Text style={stylesWelcome.termsAndCondition}>Privacy Policy</Text></TouchableOpacity>
-        </View>
-      </View>
+      <TextTermsAndConditions/>
     </SafeAreaView>
   );
 };
