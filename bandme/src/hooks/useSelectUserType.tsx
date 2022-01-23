@@ -7,10 +7,14 @@ import { useState } from 'react';
 import { RootStackParams } from '../navigation/Navigator';
 import { UserLogin } from '../interfaces/UserLogin';
 import { UserType } from '../interfaces/UserTypeEnum';
-
+import authLoginService from '../api/LoginService';
+import { UserAuthResponse } from '../interfaces/UserAuthResponse';
+import { useSnackbarAlert } from './useSnackbarAlert';
 
 
 export const useSelectUserType = (navigation: StackNavigationProp<RootStackParams, 'UserTypeScreen'>) => {
+
+    const { createSnackbarAlert } = useSnackbarAlert();
 
     const [buttonsActivityStatus, setButtonsActivityStatus] = useState({
         buttonArtist: false,
@@ -88,11 +92,38 @@ export const useSelectUserType = (navigation: StackNavigationProp<RootStackParam
         }
     };
 
-    const createAccount = (user: UserLogin) => {
+    const goToWelcomeScreen = () => {
+        navigation.navigate('WelcomeScreen');
+    };
+
+    const createAccount = async (user: UserLogin) => {
         //aca recibo el usuario + el usertype armo el objeto y lo mando por service
         console.log('Usuario: ' + JSON.stringify(user));
-        //navigation.navigate('dashboard', userType);
+        try {
+            const authLogin = authLoginService();
+            const resp = await authLogin.post<UserAuthResponse>('/create-account', {
+              headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+              params: {
+                   email: user.email,
+                   userType: user.userType,
+                },
+            });
+            const userAuthtenticated = resp.data;
+            console.log('usuario autenticado: ' + JSON.stringify(userAuthtenticated));
+
+            if (userAuthtenticated.jwt != '' && userAuthtenticated.jwt != undefined){
+                //usuario que ya estaba registrado y quiere loguearse
+                //definir que datos mando desde el back asi los mappeo aca a lo que necesito
+                navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
+              } else {
+                //el servicio no trajo el token
+                createSnackbarAlert('Sorry, something wrong happened with authentication, try again later', 'Ok', goToWelcomeScreen );
+              }
+        } catch (error: any) {
+            createSnackbarAlert('Ups, something wrong happened with authentication', 'Try again', goToWelcomeScreen);
+        }
     };
+
 
     return {
         setUserType,

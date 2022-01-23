@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props {
@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     },
     inputPassword: {
         flex: 1,
+        height: 40,
     },
   });
