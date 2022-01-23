@@ -27,7 +27,7 @@ export const Navigator = () => {
             headerShown: false,
             cardStyle: {
               backgroundColor: '#f5f5f5',
-          }
+          },
         }}
     >
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />

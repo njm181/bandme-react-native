@@ -7,11 +7,14 @@ import authLoginService from '../api/LoginService';
 import {RootStackParams} from '../navigation/Navigator';
 import {UserAuthResponse} from '../interfaces/UserAuthResponse';
 import {UserAuthRequest} from '../interfaces/UserAuthRequest';
+import { UserLogin } from '../interfaces/UserLogin';
+import { useSnackbarAlert } from './useSnackbarAlert';
 
-// eslint-disable-next-line prettier/prettier
+
 export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams, 'WelcomeScreen'>) => {
 
   const [googleUser, setGoogleUser] = useState<UserAuthResponse>({}); //podria ponerle tipado a este useState <User>
+  const { createSnackbarAlert } = useSnackbarAlert();
 
   useEffect(() => {
     configureGoogleSignIn();
@@ -40,7 +43,7 @@ export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams,
       //aca mando el id token y el email
       const userAuthRequest: UserAuthRequest = {
         idToken: userInfo.idToken,
-        email: userInfo.user.email,
+        //email: userInfo.user.email,
       };
       authenticateUser(userAuthRequest);
     } catch (error: any) {
@@ -51,30 +54,44 @@ export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams,
         console.log('Signing In');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log('Play Services Not Available or Outdated');
+        createSnackbarAlert('Ups, something wrong happened with Google', 'Try again', () => null);
       } else {
         console.log('Some Other Error Happened: ' + error);
+        createSnackbarAlert('Ups, something wrong happened', 'Try again', () => null);
       }
     }
   };
 
+
   const authenticateUser = async (userAuthRequest: UserAuthRequest) => {
-    try {
+    const user: UserLogin = {
+      email: 'nicogoogle@mail.com',//userAuthtenticated.email!,
+    };
+    navigation.navigate('UserTypeScreen', user);
+   /*  try {
       const authLogin = authLoginService();
-      const resp = await authLogin.post<UserAuthResponse>('/auth/google', {
-        id_token: userAuthRequest.idToken,
-        email: userAuthRequest.email,
+      const resp = await authLogin.post<UserAuthResponse>('/google', {
+        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+        params: { id_token: userAuthRequest.idToken, },
       });
       const userAuthtenticated = resp.data;
       console.log('usuario autenticado: ' + JSON.stringify(userAuthtenticated));
-      //aca setearia el state ya con los datos del usuario, en un context/store global (redux)
-      //por ultimo realizo la navegacion
-      //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
-      /* navigation.navigate('DashboardScreen');
-      navigation.navigate('UserTypeScreen'); */
-    } catch (error: any) {
+          //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
+          if (userAuthtenticated.jwt != '' && userAuthtenticated.jwt != undefined){
+            //usuario que ya estaba registrado y quiere loguearse
+            //definir que datos mando desde el back asi los mappeo aca a lo que necesito
+            navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
+          } else {
+            //como es un registro por red social lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
+           const user: UserLogin = {
+            email: userAuthtenticated.email!,
+          };
+          navigation.navigate('UserTypeScreen', user);
+          }
+    } catch (error: any){
       console.log('el error de la promesa: ' + error);
-      //devolver error y mostrar snackbar
-    }
+      createSnackbarAlert('Ups, something wrong happened with Google', 'Try again');
+    } */
   };
 
   return {
