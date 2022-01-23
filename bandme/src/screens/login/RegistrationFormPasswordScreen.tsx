@@ -9,6 +9,7 @@ import { RootStackParams } from '../../navigation/Navigator';
 import { TextInputsValidatePassword } from '../../components/molecules/TextInputsValidatePassword';
 import { useValidatePassword } from '../../hooks/useValidatePassword';
 import { stylesWelcome } from '../../styles/WelcomeStyles';
+import { ButtonBack } from '../../components/molecules/ButtonBack';
 
 interface Props extends StackScreenProps<RootStackParams, 'RegistrationFormPasswordScreen'>{};
 
@@ -35,56 +36,61 @@ export const RegistrationFormPasswordScreen = ({ route, navigation }: Props) => 
     // para agregar el tipo de user y asi poder registrar
 
     return (
-        <SafeAreaView style={{ padding: 16, flex: 1 }}>
-            {/* deberia tener dos estados separados uno para el primer input y otro para el segundo y paso el estado que corresponda por parametro */}
-            <TextInputsValidatePassword
-                existUser={existUser}
-                validateLenght={validateLengthPassword}
-                validateLenghtRepeat={validateLengthPasswordRepeat}
-                isValidState={isValidState}
-                isValidPasswordRepeatState={isValidPasswordRepeatState}
+        <SafeAreaView style={{ flex: 1 }}>
+            <ButtonBack
+                goToBack= { navigation.goBack }
             />
+            <View style={{ flex: 1, padding: 16 }}>
+                {/* deberia tener dos estados separados uno para el primer input y otro para el segundo y paso el estado que corresponda por parametro */}
+                <TextInputsValidatePassword
+                    existUser={existUser}
+                    validateLenght={validateLengthPassword}
+                    validateLenghtRepeat={validateLengthPasswordRepeat}
+                    isValidState={isValidState}
+                    isValidPasswordRepeatState={isValidPasswordRepeatState}
+                />
 
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'flex-end',
-                }}
-            >
-                <View style={[
-                    stylesWelcome.buttonLoginContainer, 
-                    {flex: 1, justifyContent: 'flex-end'},
-                    ]}>
-                    <TouchableOpacity
-                        disabled={ validateButtonEnable(existUser) }
-                        style={[
-                            stylesWelcome.buttonLogin,
-                            {backgroundColor: validateButtonEnable(existUser) ? 'gray' : '#ff8f00'},
-                        ]}
-                        onPress={() => sendPasswordToVerification(existUser, userEmail) }
-                        activeOpacity={0.5}
-                    >
-                    {
-                        existUser ?
-                            <Text style={[
-                                stylesWelcome.titleButton,
-                                {
-                                flex: 1,
-                                textAlign: 'center',
-                                marginLeft: 0,
-                                },
-                            ]}>Login</Text>
-                            :
-                            <Text style={[
-                                stylesWelcome.titleButton,
-                                {
-                                flex: 1,
-                                textAlign: 'center',
-                                marginLeft: 0,
-                                },
-                            ]}>Sign in</Text>
-                    }
-                    </TouchableOpacity>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'flex-end',
+                    }}
+                >
+                    <View style={[
+                        stylesWelcome.buttonLoginContainer, 
+                        {flex: 1, justifyContent: 'flex-end'},
+                        ]}>
+                        <TouchableOpacity
+                            disabled={ validateButtonEnable(existUser) }
+                            style={[
+                                stylesWelcome.buttonLogin,
+                                {backgroundColor: validateButtonEnable(existUser) ? 'gray' : '#ff8f00'},
+                            ]}
+                            onPress={() => sendPasswordToVerification(existUser, userEmail) }
+                            activeOpacity={0.5}
+                        >
+                        {
+                            existUser ?
+                                <Text style={[
+                                    stylesWelcome.titleButton,
+                                    {
+                                    flex: 1,
+                                    textAlign: 'center',
+                                    marginLeft: 0,
+                                    },
+                                ]}>Login</Text>
+                                :
+                                <Text style={[
+                                    stylesWelcome.titleButton,
+                                    {
+                                    flex: 1,
+                                    textAlign: 'center',
+                                    marginLeft: 0,
+                                    },
+                                ]}>Sign in</Text>
+                        }
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
 

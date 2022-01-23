@@ -108,10 +108,10 @@ export const useSelectUserType = (navigation: StackNavigationProp<RootStackParam
                    userType: user.userType,
                 },
             });
-            const userAuthtenticated = resp.data;
-            console.log('usuario autenticado: ' + JSON.stringify(userAuthtenticated));
+            const userAuthenticated = resp.data;
+            console.log('usuario autenticado: ' + JSON.stringify(userAuthenticated));
 
-            if (userAuthtenticated.jwt != '' && userAuthtenticated.jwt != undefined){
+            if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
                 //usuario que ya estaba registrado y quiere loguearse
                 //definir que datos mando desde el back asi los mappeo aca a lo que necesito
                 navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache

@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import { StackScreenProps } from '@react-navigation/stack';
@@ -8,6 +6,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ButtonEmailEnableDisabled } from '../../components/atoms/ButtonEmailEnableDisabled';
 import { TextInputEmail } from '../../components/atoms/TextInputEmail';
+import { ButtonBack } from '../../components/molecules/ButtonBack';
 import { useValidateEmail } from '../../hooks/useValidateEmail';
 import { RootStackParams } from '../../navigation/Navigator';
 import { stylesWelcome } from '../../styles/WelcomeStyles';
@@ -21,6 +20,9 @@ export const RegistrationFormEmailScreen = ({navigation}: Props) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <ButtonBack
+                goToBack= { navigation.goBack }
+            />
             <View style={{ padding: 16, flex: 1 }}>
                 <View style={{flex: 1}}>
                     <TextInputEmail

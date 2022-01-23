@@ -8,6 +8,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../../navigation/Navigator';
 import { stylesWelcome } from '../../styles/WelcomeStyles';
 import { ButtonsUserType } from '../../components/molecules/ButtonsUserType';
+import { ButtonBack } from '../../components/molecules/ButtonBack';
 
 interface Props extends StackScreenProps<RootStackParams, 'UserTypeScreen'>{}
 
@@ -20,7 +21,12 @@ export const UserTypeScreen = ({navigation, route}: Props) => {
     return (
         <SafeAreaView style={ stylesWelcome.container }>
 
-            <Text style={ stylesWelcome.title }>What type of user are you?</Text>
+            <ButtonBack
+                goToBack= { navigation.goBack }
+            />
+
+            <View style={{ padding: 16, flex: 1 }}>
+                <Text style={ stylesWelcome.title }>What type of user are you?</Text>
 
                 <ButtonsUserType
                     setUserType= { setUserType }
@@ -50,6 +56,7 @@ export const UserTypeScreen = ({navigation, route}: Props) => {
                         ]}>Login</Text>
                     </TouchableOpacity>
                 </View>
+            </View>
 
         </SafeAreaView>
     );

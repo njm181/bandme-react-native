@@ -74,17 +74,17 @@ export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams,
         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
         params: { id_token: userAuthRequest.idToken, },
       });
-      const userAuthtenticated = resp.data;
-      console.log('usuario autenticado: ' + JSON.stringify(userAuthtenticated));
+      const userAuthenticated = resp.data;
+      console.log('usuario autenticado: ' + JSON.stringify(userAuthenticated));
           //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
-          if (userAuthtenticated.jwt != '' && userAuthtenticated.jwt != undefined){
+          if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
             //usuario que ya estaba registrado y quiere loguearse
             //definir que datos mando desde el back asi los mappeo aca a lo que necesito
             navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
           } else {
             //como es un registro por red social lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
            const user: UserLogin = {
-            email: userAuthtenticated.email!,
+            email: userAuthenticated.email!,
           };
           navigation.navigate('UserTypeScreen', user);
           }

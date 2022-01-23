@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +9,9 @@ import { DashboardScreen } from '../screens/dashboard/DashboardScreen';
 import { RegistrationFormPasswordScreen } from '../screens/login/RegistrationFormPasswordScreen';
 import { RegistrationFormEmailScreen } from '../screens/login/RegistrationFormEmailScreen';
 import { UserLogin } from '../interfaces/UserLogin';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity } from 'react-native';
+
 
 export type RootStackParams = {
   WelcomeScreen: undefined;
@@ -37,4 +41,4 @@ export const Navigator = () => {
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
     </Stack.Navigator>
   );
-}
+};

@@ -5,6 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { UserLogin } from '../interfaces/UserLogin';
 import { RootStackParams } from '../navigation/Navigator';
+import { useSnackbarAlert } from './useSnackbarAlert';
+
 
 export const useValidatePassword = (navigation : StackNavigationProp<RootStackParams, 'RegistrationFormPasswordScreen'>) => {
 
@@ -12,6 +14,8 @@ export const useValidatePassword = (navigation : StackNavigationProp<RootStackPa
     const [passwordState, setPasswordState] = useState<string>('');
     const [passwordRepeatState, setPasswordRepeatState] = useState<string>('');
     const [isValidPasswordRepeatState, setIsValidPasswordRepeatState] = useState(true);
+    const { createSnackbarAlert } = useSnackbarAlert();
+
 
     const validateLengthPassword = (password: string) => {
             if (password.length == 0 ){
@@ -60,6 +64,10 @@ export const useValidatePassword = (navigation : StackNavigationProp<RootStackPa
         }
     };
 
+    const goToWelcomeScreen = () => {
+      navigation.navigate('WelcomeScreen');
+    };
+
     const sendPasswordToVerification = (existUser: Boolean, userEmail: string) => {
         //lo mismo aplica para logueos con redes sociales ---> FALTA aplicar en sus hooks
         if (existUser) {
@@ -70,7 +78,6 @@ export const useValidatePassword = (navigation : StackNavigationProp<RootStackPa
           console.log('Usuario para registrar');
           //chequeo de passwords
           const passwordChecked = verifyPasswords();
-
           if (passwordChecked){
             //luego hasheo la password y armo un objeto usuario que tenga el email y la pass hasheada, hace falta hashear?
              const user: UserLogin = {
@@ -81,9 +88,9 @@ export const useValidatePassword = (navigation : StackNavigationProp<RootStackPa
             navigation.navigate('UserTypeScreen', user);
           } else {
             console.log('Passwords no coinciden');
+            createSnackbarAlert('Ups, passwords do not match', 'Try again', () => null);
           }
-
-        //luego paso al formulario para que me diga que tipo de usuario es, entonces ya tendria los tres datos para crear una cuenta en backend,
+          //luego paso al formulario para que me diga que tipo de usuario es, entonces ya tendria los tres datos para crear una cuenta en backend,
         }
       };
 

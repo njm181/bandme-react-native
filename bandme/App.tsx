@@ -6,8 +6,8 @@ import {Navigator} from './src/navigation/Navigator';
 const App = () => {
   return (
     <NavigationContainer>
-      <Navigator/>
+      <Navigator />
     </NavigationContainer>
-  )
-}
+  );
+};
 export default App;

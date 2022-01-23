@@ -53,17 +53,17 @@ export const useFacebookSignIn = (navigation : StackNavigationProp<RootStackPara
                 id_token: idToken,
             },
           });
-          const userAuthtenticated = resp.data;
-          console.log('usuario autenticado de facebook: ' + JSON.stringify(userAuthtenticated));
+          const userAuthenticated = resp.data;
+          console.log('usuario autenticado de facebook: ' + JSON.stringify(userAuthenticated));
           //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
-          if (userAuthtenticated.jwt != '' && userAuthtenticated.jwt != undefined){
+          if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
             //usuario que ya estaba registrado y quiere loguearse
             //definir que datos mando desde el back asi los mappeo aca a lo que necesito
             navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
           } else {
           //como es un registro por red social el back ya obtuvo los datos del usuario y me mando el email ahora lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
            const user: UserLogin = {
-            email: userAuthtenticated.email!,
+            email: userAuthenticated.email!,
           };
           navigation.navigate('UserTypeScreen', user);
           }
