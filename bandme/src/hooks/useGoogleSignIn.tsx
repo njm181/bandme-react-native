@@ -5,7 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useEffect, useState} from 'react';
 import authLoginService from '../api/LoginService';
 import {RootStackParams} from '../navigation/Navigator';
-import {UserAuthResponse} from '../interfaces/UserAuthResponse';
+import {UserAuth} from '../interfaces/UserAuth';
 import {UserAuthRequest} from '../interfaces/UserAuthRequest';
 import { UserLogin } from '../interfaces/UserLogin';
 import { useSnackbarAlert } from './useSnackbarAlert';
@@ -13,7 +13,7 @@ import { useSnackbarAlert } from './useSnackbarAlert';
 
 export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams, 'WelcomeScreen'>) => {
 
-  const [googleUser, setGoogleUser] = useState<UserAuthResponse>({}); //podria ponerle tipado a este useState <User>
+  const [googleUser, setGoogleUser] = useState<UserAuth>({}); //podria ponerle tipado a este useState <User>
   const { createSnackbarAlert } = useSnackbarAlert();
 
   useEffect(() => {
@@ -64,34 +64,41 @@ export const useGoogleSignIn = (navigation: StackNavigationProp<RootStackParams,
 
 
   const authenticateUser = async (userAuthRequest: UserAuthRequest) => {
-    const user: UserLogin = {
+    /* const user: UserAuth = {
       email: 'nicogoogle@mail.com',//userAuthtenticated.email!,
     };
-    navigation.navigate('UserTypeScreen', user);
-   /*  try {
+    navigation.navigate('UserTypeScreen', user); */
+    try {
       const authLogin = authLoginService();
-      const resp = await authLogin.post<UserAuthResponse>('/google', {
-        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-        params: { id_token: userAuthRequest.idToken, },
+      const resp = await authLogin.post('/google', {
+        headers: { 'Content-Type': 'application/json' },
+        access_token: userAuthRequest.idToken,
       });
       const userAuthenticated = resp.data;
       console.log('usuario autenticado: ' + JSON.stringify(userAuthenticated));
           //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
-          if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
-            //usuario que ya estaba registrado y quiere loguearse
-            //definir que datos mando desde el back asi los mappeo aca a lo que necesito
-            navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
-          } else {
-            //como es un registro por red social lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
-           const user: UserLogin = {
-            email: userAuthenticated.email!,
-          };
-          navigation.navigate('UserTypeScreen', user);
-          }
+      if (userAuthenticated.exist_email){
+        //usuario que ya estaba registrado y quiere loguearse
+        //definir que datos mando desde el back asi los mappeo aca a lo que necesito
+        console.log('usuario para loguear: ' + userAuthenticated.exist_email);
+        console.log('datos del usuario para hacer login: ' + JSON.stringify(userAuthenticated));
+        navigation.navigate('DashboardScreen', userAuthenticated.jwt);
+      } else {
+        //como es un registro por red social lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
+         const user: UserAuth = {
+          emailExist: userAuthenticated.exist_email,
+          email: userAuthenticated.user_data.email,
+          firstName: userAuthenticated.user_data.firstName,
+          lastName: userAuthenticated.user_data.lastName,
+          profilePhoto: userAuthenticated.user_data.profilePhoto,
+          provider: userAuthenticated.user_data.provider,
+        };
+        navigation.navigate('UserTypeScreen', user);
+      }
     } catch (error: any){
       console.log('el error de la promesa: ' + error);
-      createSnackbarAlert('Ups, something wrong happened with Google', 'Try again');
-    } */
+      createSnackbarAlert('Ups, something wrong happened with Google', 'Try again', () => null);
+    }
   };
 
   return {

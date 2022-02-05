@@ -16,12 +16,12 @@ interface Props extends StackScreenProps<RootStackParams, 'RegistrationFormPassw
 export const RegistrationFormPasswordScreen = ({ route, navigation }: Props) => {
 
     //aca traemos desde el input email si el usuario existe o no para saber si ingresa una o dos veces la password
-    const existUser = false;//route.params;
+    const existUser = route.params.existUser;
     const userEmail = route.params.email;
-    console.log(`El usuario existe? ${existUser} HARDCODEADO`);
+    console.log(`El usuario existe? ${existUser}`);
     console.log(`Email del usuario ${userEmail}`);
 
-    const { 
+    const {
             isValidState,
             validateLengthPassword,
             validateLengthPasswordRepeat,

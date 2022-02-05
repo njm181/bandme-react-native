@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { ValidateEmail } from '../interfaces/UserValidateEmail';
 import { RootStackParams } from '../navigation/Navigator';
 import authLoginService from '../api/LoginService';
-import { UserAuthResponse } from '../interfaces/UserAuthResponse';
 import { useSnackbarAlert } from './useSnackbarAlert';
 
 
@@ -53,15 +52,16 @@ export const useValidateEmail = (navigation : StackNavigationProp<RootStackParam
         //le pego al servicio y espero respuesta por si ese email existe o no
         try {
           const authLogin = authLoginService();
-          const resp = await authLogin.post<UserAuthResponse>('/email-validate', {
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            params: { email: email },
+          const resp = await authLogin.post('/validate/email', {
+            headers: { 'Content-Type': 'application/json '},
+            email: email,
           });
+          //console.log('respuesta del servicio de email: ' + JSON.parse(JSON.stringify(resp.data)));
           const emailAuthenticated = resp.data;
-          console.log('email validado: ' + JSON.stringify(emailAuthenticated));
+          console.log('email validado: ' + JSON.stringify(emailAuthenticated.exist_email));
         //si existe devuelvo true y mando a poner la password en un unico campo
         //si no existe devuelvo false y mando a crear la password con los dos campos de password
-        if (emailAuthenticated.emailExist) {
+         if (emailAuthenticated.exist_email) {
             console.log('Usuario registrado, ingrese su password');
             navigation.navigate('RegistrationFormPasswordScreen', {existUser: true, email: email});
         } else {

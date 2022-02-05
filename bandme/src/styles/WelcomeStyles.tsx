@@ -11,7 +11,7 @@ export const stylesWelcome = StyleSheet.create({
         fontSize: 30,
         justifyContent: 'center',
         marginTop: 20,
-        color: '#000000'
+        color: '#000000',
     },
     imageContainer: {
         alignItems: 'center',
@@ -20,7 +20,8 @@ export const stylesWelcome = StyleSheet.create({
     containerButtons: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
+        paddingHorizontal: 16,
     },
     buttonLoginContainer: {
         marginVertical: 10,
@@ -39,32 +40,32 @@ export const stylesWelcome = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5
+        elevation: 5,
     },
     titleButton: {
         color: 'white',
         fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 20,
-    }, 
+    },
     containerTermsConditions:{
         marginTop: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     termsAndCondition: {
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 14
+        fontSize: 14,
     },
     termsAndConditionTopPart: {
         textAlign: 'center',
         fontSize: 16,
-        color: '#9e9e9e'
+        color: '#9e9e9e',
     },
     termsAndConditionContainerBottomPart: {
         flexDirection: 'row',
         height: 30,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 });

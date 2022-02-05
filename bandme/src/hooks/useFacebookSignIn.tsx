@@ -9,7 +9,7 @@ import authLoginService from '../api/LoginService';
 import { UserLogin } from '../interfaces/UserLogin';
 import {RootStackParams} from '../navigation/Navigator';
 import { useSnackbarAlert } from './useSnackbarAlert';
-import { UserAuthResponse } from '../interfaces/UserAuthResponse';
+import { UserAuth } from '../interfaces/UserAuth';
 
 export const useFacebookSignIn = (navigation : StackNavigationProp<RootStackParams, 'WelcomeScreen'>) => {
 
@@ -41,40 +41,43 @@ export const useFacebookSignIn = (navigation : StackNavigationProp<RootStackPara
   };
 
     const facebookSignIn = async (idToken?: string) => {
-      const user: UserLogin = {
-        email: 'nicofacebook@mail.com',//userAuthtenticated.email!,
-      };
-      navigation.navigate('UserTypeScreen', user);
-        /* try {
+        try {
           const authLogin = authLoginService();
-          const resp = await authLogin.post<UserAuthResponse>('/facebook', {
-            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-            params: {
-                id_token: idToken,
-            },
+          const resp = await authLogin.post('/facebook', {
+            headers: { 'Content-Type': 'application/json'},
+            access_token: idToken,
           });
+          console.log('Respuesta del servicio backend de facebook: ' + JSON.stringify(resp.data));
           const userAuthenticated = resp.data;
-          console.log('usuario autenticado de facebook: ' + JSON.stringify(userAuthenticated));
+          console.log('usuario autenticado de facebook: ' + userAuthenticated.exist_email);
           //es un usuario registrado o es la primera vez? (es login o registro lo que voy a hacer)
-          if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
-            //usuario que ya estaba registrado y quiere loguearse
-            //definir que datos mando desde el back asi los mappeo aca a lo que necesito
-            navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
+          if ( userAuthenticated.exist_email ){
+            console.log('usuario para loguear: ' + userAuthenticated.exist_email);
+            console.log('datos del usuario para hacer login: ' + JSON.stringify(userAuthenticated));
+            navigation.navigate('DashboardScreen', userAuthenticated.jwt);
           } else {
-          //como es un registro por red social el back ya obtuvo los datos del usuario y me mando el email ahora lo envio directo a que me diga que tipo de usuario es asi se lo envio al back junto con el email para identificar en mongo
-           const user: UserLogin = {
-            email: userAuthenticated.email!,
+          //como es un registro por red social el back ya obtuvo los datos del usuario 
+          //y me mando el email y otros datos.
+          // ahora lo envio directo a que me diga que tipo de usuario es asi se lo envio al back 
+          //junto con el email para identificar en mongo
+           const user: UserAuth = {
+              emailExist: userAuthenticated.exist_email,
+              email: userAuthenticated.user_data.email,
+              firstName: userAuthenticated.user_data.firstName,
+              lastName: userAuthenticated.user_data.lastName,
+              profilePhoto: userAuthenticated.user_data.profilePhoto,
+              provider: userAuthenticated.user_data.provider,
           };
           navigation.navigate('UserTypeScreen', user);
           }
         } catch (error: any){
           console.log('el error de la promesa: ' + error);
           createSnackbarAlert('Ups, something wrong happened with Facebook', 'Try again', () => null);
-        } */
+        }
       };
 
     return {
       handleFacebookLogin,
-        facebookSignIn,
+      facebookSignIn,
     };
 };

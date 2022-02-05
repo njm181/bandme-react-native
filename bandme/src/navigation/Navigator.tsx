@@ -8,17 +8,15 @@ import { UserTypeScreen } from '../screens/login/UserTypeScreen';
 import { DashboardScreen } from '../screens/dashboard/DashboardScreen';
 import { RegistrationFormPasswordScreen } from '../screens/login/RegistrationFormPasswordScreen';
 import { RegistrationFormEmailScreen } from '../screens/login/RegistrationFormEmailScreen';
-import { UserLogin } from '../interfaces/UserLogin';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { TouchableOpacity } from 'react-native';
+import { UserAuth } from '../interfaces/UserAuth';
 
 
 export type RootStackParams = {
   WelcomeScreen: undefined;
-  UserTypeScreen: UserLogin;
+  UserTypeScreen: UserAuth;
   RegistrationFormEmailScreen: undefined;
   RegistrationFormPasswordScreen: {existUser: Boolean, email: string};
-  DashboardScreen: undefined;
+  DashboardScreen: String;
 }
 
 const Stack = createStackNavigator<RootStackParams>();

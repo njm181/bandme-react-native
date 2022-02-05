@@ -8,8 +8,8 @@ import { RootStackParams } from '../navigation/Navigator';
 import { UserLogin } from '../interfaces/UserLogin';
 import { UserType } from '../interfaces/UserTypeEnum';
 import authLoginService from '../api/LoginService';
-import { UserAuthResponse } from '../interfaces/UserAuthResponse';
 import { useSnackbarAlert } from './useSnackbarAlert';
+import { UserAuth } from '../interfaces/UserAuth';
 
 
 export const useSelectUserType = (navigation: StackNavigationProp<RootStackParams, 'UserTypeScreen'>) => {
@@ -70,7 +70,7 @@ export const useSelectUserType = (navigation: StackNavigationProp<RootStackParam
         setEnableButton(userType);
     };
 
-    const setUser = (user: UserLogin) => {
+    const setUser = (user: UserAuth) => {
         let userType = UserType.UNDEFINED;
 
         if (buttonsActivityStatus.buttonArtist) {
@@ -96,30 +96,47 @@ export const useSelectUserType = (navigation: StackNavigationProp<RootStackParam
         navigation.navigate('WelcomeScreen');
     };
 
-    const createAccount = async (user: UserLogin) => {
+    const createAccount = async (user: UserAuth) => {
         //aca recibo el usuario + el usertype armo el objeto y lo mando por service
-        console.log('Usuario: ' + JSON.stringify(user));
+        console.log('Usuario para crear cuenta: ' + JSON.stringify(user));
         try {
+            let resp = null;
             const authLogin = authLoginService();
-            const resp = await authLogin.post<UserAuthResponse>('/create-account', {
-              headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-              params: {
-                   email: user.email,
-                   userType: user.userType,
-                },
-            });
+            if (user.firstName != null && user.firstName != undefined){
+                resp = await authLogin.post('/create/account', {
+                    headers: { 'Content-Type': 'application/json' },
+                    email: user.email,
+                    password: user.password,
+                    userType: user.userType,
+                    provider: user.provider,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    profilePhoto: user.profilePhoto,
+                });
+            } else {
+                resp = await authLogin.post('/create/account', {
+                    headers: { 'Content-Type': 'application/json' },
+                    email: user.email,
+                    password: user.password,
+                    userType: user.userType,
+                    provider: user.provider,
+                });
+            }
             const userAuthenticated = resp.data;
             console.log('usuario autenticado: ' + JSON.stringify(userAuthenticated));
 
-            if (userAuthenticated.jwt != '' && userAuthenticated.jwt != undefined){
-                //usuario que ya estaba registrado y quiere loguearse
-                //definir que datos mando desde el back asi los mappeo aca a lo que necesito
-                navigation.navigate('DashboardScreen');//mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
-              } else {
-                //el servicio no trajo el token
-                createSnackbarAlert('Sorry, something wrong happened with authentication, try again later', 'Ok', goToWelcomeScreen );
-              }
+            if (userAuthenticated.accountCreated) {
+                //cuenta creada y acceso a dashboard
+                console.log('Cuenta creada: ' + JSON.stringify(userAuthenticated.payload.user_data));
+                console.log('Cuenta creada JWT: ' + userAuthenticated.payload.jwt);
+                navigation.navigate('DashboardScreen', userAuthenticated.payload.jwt);
+                //mando el objeto usuario ya mapeado o uso Realm DB https://docs.mongodb.com/realm/sdk/react-native/ o lo guardo en cache https://www.npmjs.com/package/react-native-cache
+            } else {
+                console.log('Servicio responde success pero no se pudo crear la cuenta');
+                createSnackbarAlert('Sorry, something wrong happened to create the account, try again later', 'Ok', goToWelcomeScreen );
+            }
         } catch (error: any) {
+            console.log('Error con el servicio de creat cuenta: ' + error);
             createSnackbarAlert('Ups, something wrong happened with authentication', 'Try again', goToWelcomeScreen);
         }
     };

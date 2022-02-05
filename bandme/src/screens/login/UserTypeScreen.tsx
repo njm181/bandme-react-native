@@ -16,6 +16,8 @@ export const UserTypeScreen = ({navigation, route}: Props) => {
 
     const user = route.params;
 
+    console.log('Usuario que llega a elegir su tipo: ' + JSON.stringify(user));
+
     const { setUserType, validateButtonEnable, setUser, buttonsActivityStatus } = useSelectUserType(navigation);
 
     return (
