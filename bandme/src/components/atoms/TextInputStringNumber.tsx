@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import { KeyboardTypeOptions, StyleSheet, TextInput } from 'react-native';
@@ -7,10 +8,10 @@ interface Props {
   maxLength: number;
   keyboardType: KeyboardTypeOptions;
   isMultiline: boolean;
-  width: string;
+  width: string | null;
 }
 
-export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, isMultiline, width = '100%' }: Props) => {
+export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, isMultiline, width }: Props) => {
 
     const [text, onChangeText] = React.useState('');
     const [number, onChangeNumber] = React.useState(null);
@@ -19,7 +20,9 @@ export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, is
       <TextInput
         style={[
           isMultiline ? stylesMultiLine.input : styles.input,
-          {width: width},
+          {
+            width: width == null ? '100%' : width,
+          },
         ]}
         onChangeText={onChangeText}
         value={text}

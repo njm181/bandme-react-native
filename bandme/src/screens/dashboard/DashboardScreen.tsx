@@ -3,10 +3,12 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonLogin } from '../../components/atoms/ButtonLogin';
+import { CheckBoxCustom } from '../../components/atoms/CheckBoxCustom';
 import { TextInputStringNumber } from '../../components/atoms/TextInputStringNumber';
 import { CustomDateTimePicker } from '../../components/molecules/ CustomDateTimePicker';
 import { ButtonCircleLikeShare } from '../../components/molecules/ButtonCircleLikeShare';
 import { Header } from '../../components/molecules/Header';
+import { CreatePublicationForm } from '../../components/organisms/CreatePublicationForm';
 import { DetailsButtons } from '../../components/organisms/DetailsButtons';
 import { ListPost } from '../../components/organisms/ListPost';
 import { PublicationDetail } from '../../components/organisms/PublicationDetail';
@@ -66,7 +68,11 @@ export const DashboardScreen = () => {
                 isMultiline={true}
                 width={'100%'}
             /> */}
-            <CustomDateTimePicker/>
+            {/* <CustomDateTimePicker/> */}
+            <CreatePublicationForm/>
+            {/* <CheckBoxCustom
+                title= 'Title del checkbox'
+            /> */}
         </SafeAreaView>
     );
 };
