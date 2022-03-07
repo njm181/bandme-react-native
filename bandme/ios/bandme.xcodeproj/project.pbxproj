@@ -40,6 +40,7 @@
 		6423831EA8574132BED9D8CC /* libPods-bandme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bandme.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C97AB639B58BBB4B15BBE30 /* Pods-bandme-bandmeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandme-bandmeTests.debug.xcconfig"; path = "Target Support Files/Pods-bandme-bandmeTests/Pods-bandme-bandmeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = bandme/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9E47B4B727D4EF3C00DCFAFA /* FontAwesome.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = FontAwesome.js; path = "../../node_modules/react-native-vector-icons/FontAwesome.js"; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-bandme-bandmeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bandme-bandmeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-bandme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandme.debug.xcconfig"; path = "Target Support Files/Pods-bandme/Pods-bandme.debug.xcconfig"; sourceTree = "<group>"; };
 		D00AAFFCFCFDA5787532823F /* Pods-bandme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bandme.release.xcconfig"; path = "Target Support Files/Pods-bandme/Pods-bandme.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		E3F5339F277B420D00CB4F30 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9E47B4B727D4EF3C00DCFAFA /* FontAwesome.js */,
 				E3F533A1277B436400CB4F30 /* Ionicons.ttf */,
 			);
 			path = Fonts;

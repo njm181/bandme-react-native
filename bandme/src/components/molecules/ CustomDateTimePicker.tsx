@@ -69,7 +69,7 @@ export const CustomDateTimePicker = () => {
           <TouchableOpacity
             style={style.buttonDateTime}
             onPress={showDatepicker}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
+              <Text style={{color: '#616161', fontWeight: 'bold'}}>
                 {
                   getEventDate.length > 1 ? getEventDate : 'Event Date'
                 }
@@ -82,7 +82,7 @@ export const CustomDateTimePicker = () => {
           <TouchableOpacity
             style={style.buttonDateTime}
             onPress={showTimepicker}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
+              <Text style={{color: '#616161', fontWeight: 'bold'}}>
                 {
                   getEventTime.length > 1 ? getEventTime : 'Event Time'
                 }
@@ -114,8 +114,10 @@ const style = StyleSheet.create({
     width: '100%',
     height: 50,
     flexDirection: 'row',
-    backgroundColor: '#9e9e9e',
+    backgroundColor: '#f5f5f5',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',

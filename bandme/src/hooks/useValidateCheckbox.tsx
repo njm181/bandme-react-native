@@ -8,19 +8,17 @@ export const useValidateCheckbox = () => {
         advertising: false,
       });
 
-      const setEnableCheckbox = (isSelected: boolean, checkboxType: number) => {
+      const setEnableCheckbox = (isSelected: boolean, checkboxType: string) => {
         console.log('que checkbox seleccionaste? : ' + JSON.stringify(checkboxSelected));
         switch (checkboxType) {
-            case 1: {
-                //'search'
+            case 'search': {
                 setcheckboxSelected({
                     search: isSelected,
                     advertising: false,
                 });
                 break;
             }
-            case 2: {
-                //'advertising'
+            case 'advertising': {
                 setcheckboxSelected({
                     search: false,
                     advertising: isSelected,

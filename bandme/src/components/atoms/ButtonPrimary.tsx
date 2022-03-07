@@ -1,19 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/self-closing-comp */
-import React from 'react'
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 //hacer mas generico con el height, width, text and colour
+interface Props{
+    title: string;
+    height?: number;
+    width?: number | string;
+    color?: string;
+    clickAction: () => void;
+}
 
-export const ButtonPrimary = () => {
+export const ButtonPrimary = ({ title, height = 50, width = 120, color = '#ff8f00', clickAction }: Props) => {
   return (
     <TouchableOpacity
         style={{
-            width: 120,
-            height: 50,
+            width: width,
+            height: height,
             flexDirection: 'row',
-            backgroundColor: '#ff8f00',
+            backgroundColor: color,
             borderRadius: 50,
             alignItems: 'center',
             justifyContent: 'center',
@@ -26,7 +31,7 @@ export const ButtonPrimary = () => {
             shadowRadius: 3.84,
             elevation: 5,
         }}
-        onPress={() => console.log('Click button primary')}//clickAction()
+        onPress={ clickAction }
         activeOpacity={0.5}>
             <Text
                 style={{
@@ -34,7 +39,9 @@ export const ButtonPrimary = () => {
                     color: 'white',
                     fontWeight: 'bold',
                 }}
-            >Book</Text>
+            >
+                {title}
+            </Text>
     </TouchableOpacity>
   );
 };
