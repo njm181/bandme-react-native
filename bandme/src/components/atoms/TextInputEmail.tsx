@@ -1,9 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { ValidateEmail } from '../../interfaces/UserValidateEmail';
-
 
 interface Props {
     emailState: ValidateEmail;
@@ -27,7 +25,7 @@ export const TextInputEmail = ({emailState, validateEmail}: Props) => {
             value={ emailState.email }
         />
         {
-            !emailState.validated ?
+            emailState.validated ?
                 <Text
                     style={{
                         color: 'red',

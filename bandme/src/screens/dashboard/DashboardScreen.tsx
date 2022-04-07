@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
+import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonLogin } from '../../components/atoms/ButtonLogin';
 import { CheckBoxCustom } from '../../components/atoms/CheckBoxCustom';
+import { TextInputEmail } from '../../components/atoms/TextInputEmail';
 import { TextInputStringNumber } from '../../components/atoms/TextInputStringNumber';
 import { CustomDateTimePicker } from '../../components/molecules/ CustomDateTimePicker';
 import { ButtonCircleLikeShare } from '../../components/molecules/ButtonCircleLikeShare';
@@ -13,6 +15,7 @@ import { DetailsButtons } from '../../components/organisms/DetailsButtons';
 import { ListPost } from '../../components/organisms/ListPost';
 import { PublicationDetail } from '../../components/organisms/PublicationDetail';
 import { PublicationDetailCard } from '../../components/organisms/PublicationDetailCard';
+import { useValidateTextInput } from '../../hooks/useValidateTextInput';
 
 export const DashboardScreen = () => {
 
@@ -70,6 +73,15 @@ export const DashboardScreen = () => {
             /> */}
             {/* <CustomDateTimePicker/> */}
             <CreatePublicationForm/>
+            {/* <TextInputStringNumber
+                placeholder={'Calle'}
+                maxLength={25}
+                keyboardType={'default'}
+                isMultiline={false}
+                width={null}
+                textState={textState}
+                validateTextInput={validateTextInput}
+            /> */}
             {/* <CheckBoxCustom
                 title= 'Title del checkbox'
             /> */}

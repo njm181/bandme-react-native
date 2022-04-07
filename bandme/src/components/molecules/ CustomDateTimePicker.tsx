@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-cond-assign */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useValidateDateTimePicker } from '../../hooks/useValidateDateTimePicker';
 
 
 //https://www.npmjs.com/package/@react-native-community/datetimepicker
@@ -16,6 +18,8 @@ export const CustomDateTimePicker = () => {
     const [ getEventDate, setEventDate ] = useState<string>('');
     const [ getEventTime, setEventTime ] = useState<string>('');
     const [ getCurrentMode, setCurrentMode ] = useState<string>('');
+
+    const { setDatetimePicked } = useValidateDateTimePicker();
 
     const monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ];
 
@@ -31,12 +35,15 @@ export const CustomDateTimePicker = () => {
       const currentDate = selectedDate || date;
       setShow(Platform.OS === 'ios');
       setDate(currentDate);
-
+      //setDatetimePicked(getEventDate);
       console.log('timesstamp: ' + currentDate.getTime() / 1000);
       const timeStamp = currentDate.getTime() / 1000; //para el backend
 
       if (getCurrentMode == 'date') {
-        setEventDate(currentDate.getDate() + ' ' + monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear());
+        const dateSelected = currentDate.getDate() + ' ' + monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear();
+        setEventDate(dateSelected);
+        console.log('EVENT DATE DATA: ' + dateSelected);
+        setDatetimePicked(dateSelected);
       } else {
         setEventTime(parseTime(currentDate.getHours()) + ':' + parseTime(currentDate.getMinutes()));
       }

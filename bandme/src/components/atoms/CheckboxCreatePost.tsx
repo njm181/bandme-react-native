@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { CheckBox } from 'react-native-elements';
+//import { useValidateDateTimePicker } from '../../hooks/useValidateDateTimePicker';
 
 interface Props {
   title: string;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const CheckboxCreatePost = ({ title, setSelection, checkboxSelected, checkboxType }: Props) => {
+
+  //const { setDatetimePicked } = useValidateDateTimePicker();
 
   return (
     <CheckBox

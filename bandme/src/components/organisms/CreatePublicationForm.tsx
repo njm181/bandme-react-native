@@ -1,8 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useValidateCheckbox } from '../../hooks/useValidateCheckbox';
+import { useValidateCreatePostButton } from '../../hooks/useValidateCreatePostButton';
+import { useValidateTextInput } from '../../hooks/useValidateTextInput';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
 import { CheckboxCreatePost } from '../atoms/CheckboxCreatePost';
 import { TextInputStringNumber } from '../atoms/TextInputStringNumber';
@@ -11,7 +13,14 @@ import { CustomDateTimePicker } from '../molecules/ CustomDateTimePicker';
 
 export const CreatePublicationForm = () => {
 
-const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
+    const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
+    const { textState, validateTextInput, input } = useValidateTextInput();
+    const { validateFieldsToEnableButton } = useValidateCreatePostButton();
+
+   /*  const { input, handlerInputChange, setInput } =  useForm({
+        title: '',
+        description: '',
+    }); */
 
   return (
 
@@ -36,11 +45,16 @@ const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
                     </View>
 
                     <TextInputStringNumber
-                            placeholder={'Titulo'}
+                            placeholder={'Title'}
                             maxLength={25}
                             keyboardType={'default'}
                             isMultiline={false}
                             width={null}
+                            //textState={textState}
+                            validateTextInput={validateTextInput}
+                            value={ input.Title }
+                            validateButtonState={ validateFieldsToEnableButton }
+                            isRequired={true}
                     />
                     <View style={{ marginTop: 16 }}>
                     <TextInputStringNumber
@@ -49,36 +63,56 @@ const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
                         keyboardType={'default'}
                         isMultiline={false}
                         width={null}
+                        //textState={textState}
+                        validateTextInput={validateTextInput}
+                        value={ input.Calle }
+                        validateButtonState={ validateFieldsToEnableButton }
+                        isRequired={false}
                     />
                     </View>
                     <View style={{ marginTop: 16, flexDirection: 'row'}}>
                         <View style={{ flex: 1, paddingEnd: 4}}>
                             <TextInputStringNumber
-                                placeholder={'altura'}
+                                placeholder={'Altura'}
                                 maxLength={6}
                                 keyboardType={'number-pad'}
                                 isMultiline={false}
                                 width={null}
+                                //textState={textState}
+                                validateTextInput={validateTextInput}
+                                value={ input.Altura }
+                                validateButtonState={ validateFieldsToEnableButton }
+                                isRequired={false}
                             />
                         </View>
                         <View style={{ flex: 1, paddingStart: 4}}>
                             <TextInputStringNumber
-                                placeholder={'Codigo Postal'}
-                                maxLength={6}
-                                keyboardType={'number-pad'}
-                                isMultiline={false}
-                                width={null}
-                            />
+                                  placeholder={'CP'}
+                                  maxLength={6}
+                                  keyboardType={'number-pad'}
+                                  isMultiline={false}
+                                  width={null}
+                                  //textState={textState}
+                                  validateTextInput={validateTextInput}
+                                  value={input.CP}
+                                  validateButtonState={ validateFieldsToEnableButton }
+                                  isRequired={false}
+                                />
                         </View>
                     </View>
 
                         <View style={{marginVertical: 16}}>
                             <TextInputStringNumber
-                                placeholder={'Descripcion'}
+                                placeholder={'Description'}
                                 maxLength={255}
                                 keyboardType={'default'}
                                 isMultiline={true}
                                 width={'100%'}
+                                //textState={textState}
+                                validateTextInput={validateTextInput}
+                                value={ input.Description }
+                                validateButtonState={ validateFieldsToEnableButton }
+                                isRequired={true}
                             />
                         </View>
 
@@ -131,6 +165,7 @@ const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
                     title={'Create'}
                     clickAction={ () => console.log('Click button primary!') }
                     width={'100%'}
+                    isDisabled={true} //aca va un state que varia si description y title no estan vacios y si se selecciono un checkbox
                 />
             </View>
 
