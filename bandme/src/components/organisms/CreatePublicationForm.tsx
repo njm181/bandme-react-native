@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useCreatePost } from '../../hooks/useCreatePost';
 import { useValidateCheckbox } from '../../hooks/useValidateCheckbox';
 import { useValidateCreatePostButton } from '../../hooks/useValidateCreatePostButton';
 import { useValidateTextInput } from '../../hooks/useValidateTextInput';
@@ -13,14 +14,10 @@ import { CustomDateTimePicker } from '../molecules/ CustomDateTimePicker';
 
 export const CreatePublicationForm = () => {
 
-    const { setEnableCheckbox, checkboxSelected } = useValidateCheckbox();
-    const { textState, validateTextInput, input } = useValidateTextInput();
-    const { validateFieldsToEnableButton } = useValidateCreatePostButton();
-
-   /*  const { input, handlerInputChange, setInput } =  useForm({
-        title: '',
-        description: '',
-    }); */
+    const { setEnableCheckbox, checkboxSelected, checkboxValidate } = useValidateCheckbox();
+    const { validateTextInput, input } = useValidateTextInput();
+    const { validateFieldsToEnableButton, isEnableButton } = useValidateCreatePostButton();
+    const { validateFields, setDatePicker, getEventDate, setTimePicker, getEventTime } = useCreatePost();
 
   return (
 
@@ -50,7 +47,6 @@ export const CreatePublicationForm = () => {
                             keyboardType={'default'}
                             isMultiline={false}
                             width={null}
-                            //textState={textState}
                             validateTextInput={validateTextInput}
                             value={ input.Title }
                             validateButtonState={ validateFieldsToEnableButton }
@@ -63,7 +59,6 @@ export const CreatePublicationForm = () => {
                         keyboardType={'default'}
                         isMultiline={false}
                         width={null}
-                        //textState={textState}
                         validateTextInput={validateTextInput}
                         value={ input.Calle }
                         validateButtonState={ validateFieldsToEnableButton }
@@ -78,7 +73,6 @@ export const CreatePublicationForm = () => {
                                 keyboardType={'number-pad'}
                                 isMultiline={false}
                                 width={null}
-                                //textState={textState}
                                 validateTextInput={validateTextInput}
                                 value={ input.Altura }
                                 validateButtonState={ validateFieldsToEnableButton }
@@ -92,7 +86,6 @@ export const CreatePublicationForm = () => {
                                   keyboardType={'number-pad'}
                                   isMultiline={false}
                                   width={null}
-                                  //textState={textState}
                                   validateTextInput={validateTextInput}
                                   value={input.CP}
                                   validateButtonState={ validateFieldsToEnableButton }
@@ -108,7 +101,6 @@ export const CreatePublicationForm = () => {
                                 keyboardType={'default'}
                                 isMultiline={true}
                                 width={'100%'}
-                                //textState={textState}
                                 validateTextInput={validateTextInput}
                                 value={ input.Description }
                                 validateButtonState={ validateFieldsToEnableButton }
@@ -117,7 +109,10 @@ export const CreatePublicationForm = () => {
                         </View>
 
                         <View style={{ marginVertical: 16 }}>
-                            <CustomDateTimePicker/>
+                            <CustomDateTimePicker
+                                setDatePicker={ setDatePicker }
+                                setTimePicker={ setTimePicker }
+                            />
                         </View>
 
                         <View style={{marginVertical: 16}}>
@@ -146,16 +141,6 @@ export const CreatePublicationForm = () => {
                                 />
                             </View>
                         </View>
-
-                        {/* <View style={{backgroundColor: 'red'}}>
-                            <ButtonPrimary
-                                title={'Create'}
-                                clickAction={ () => console.log('Click button primary!') }
-                                width={'100%'}
-                            />
-                        </View> */}
-
-                        {/* <View style={{backgroundColor: 'green', height: 100 }}/> */}
                 </View>
 
             </TouchableWithoutFeedback>
@@ -163,9 +148,22 @@ export const CreatePublicationForm = () => {
             <View style={{justifyContent: 'flex-end'}}>
                 <ButtonPrimary
                     title={'Create'}
-                    clickAction={ () => console.log('Click button primary!') }
+                    clickAction={ () =>
+                        validateFields(
+                            input.Title,
+                            input.Calle,
+                            input.Altura,
+                            input.CP,
+                            input.Description,
+                            getEventDate,
+                            getEventTime,
+                            checkboxSelected,
+                        )
+                    }
                     width={'100%'}
-                    isDisabled={true} //aca va un state que varia si description y title no estan vacios y si se selecciono un checkbox
+                    isDisabled= {
+                        isEnableButton.Description && isEnableButton.Title && checkboxValidate() ? false : true
+                    }
                 />
             </View>
 

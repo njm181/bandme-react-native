@@ -1,7 +1,7 @@
 /* eslint-disable semi */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react'
-import { KeyboardTypeOptions, StyleSheet, Text, TextInput, View } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet, TextInput, View } from 'react-native';
 
 interface Props {
   placeholder: string;
@@ -14,7 +14,6 @@ interface Props {
   value: string;
   isRequired: boolean;
   validateButtonState: (fieldValue: boolean, name: string) => void;
-  
 }
 
 export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState }: Props) => {
@@ -31,15 +30,16 @@ export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, is
             {
               width: width == null ? '100%' : width,
             },
-            focus ? stylesOnBlurFocus.inputOnFocus : null,//stylesOnBlurFocus.inputOnBlur,
+            focus ? stylesOnBlurFocus.inputOnFocus : null,
           ]}
           onChangeText={ (inputText) =>
              { console.log('placeholder: ' + placeholder + '// texto ingresado: ' + inputText)
               onChangeText(inputText);
               validateTextInput(inputText, placeholder)
+              console.log('TEXTO INGRESADO: ' + inputText);
               isRequired ?
-                text.length > 0 ?
-                validateButtonState(true, placeholder)
+                inputText != '' ?
+                  validateButtonState(true, placeholder)
                   :
                   validateButtonState(false, placeholder)
                 :

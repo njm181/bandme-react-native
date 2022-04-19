@@ -1,17 +1,20 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-cond-assign */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useValidateDateTimePicker } from '../../hooks/useValidateDateTimePicker';
+//import { useValidateDateTimePicker } from '../../hooks/useValidateDateTimePicker';
 
 
 //https://www.npmjs.com/package/@react-native-community/datetimepicker
-export const CustomDateTimePicker = () => {
 
-    const [date, setDate] = useState(new Date());
+interface Props {
+  setDatePicker: (dateSelected: string) => void;
+  setTimePicker: (timeSelected: string) => void;
+}
+
+export const CustomDateTimePicker = ({ setDatePicker, setTimePicker }: Props) => {
+
+    const [dateNow, setDate] = useState(new Date());
     const [displayMode, setDisplayMode] = useState<any>('date');
     const [show, setShow] = useState(false);
 
@@ -19,7 +22,8 @@ export const CustomDateTimePicker = () => {
     const [ getEventTime, setEventTime ] = useState<string>('');
     const [ getCurrentMode, setCurrentMode ] = useState<string>('');
 
-    const { setDatetimePicked } = useValidateDateTimePicker();
+    //const { setDatetimePicked } = useValidateDateTimePicker();
+    //const { setDatePicker } = useCreatePost();
 
     const monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec' ];
 
@@ -31,21 +35,22 @@ export const CustomDateTimePicker = () => {
       }
     }
 
-    const onChange = (event: any, selectedDate: Date) => {
-      const currentDate = selectedDate || date;
+    const onChange = (event: Event, selectedDate?: Date) => {
+      const currentDate = selectedDate || dateNow;
       setShow(Platform.OS === 'ios');
       setDate(currentDate);
-      //setDatetimePicked(getEventDate);
       console.log('timesstamp: ' + currentDate.getTime() / 1000);
-      const timeStamp = currentDate.getTime() / 1000; //para el backend
+      //const timeStamp = currentDate.getTime() / 1000; //para el backend
 
-      if (getCurrentMode == 'date') {
+      if (getCurrentMode === 'date') {
         const dateSelected = currentDate.getDate() + ' ' + monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear();
-        setEventDate(dateSelected);
         console.log('EVENT DATE DATA: ' + dateSelected);
-        setDatetimePicked(dateSelected);
+        setEventDate(dateSelected);
+        setDatePicker(dateSelected);
       } else {
         setEventTime(parseTime(currentDate.getHours()) + ':' + parseTime(currentDate.getMinutes()));
+        const timeSelected = currentDate.getHours() + ':' + currentDate.getMinutes();
+        setTimePicker(timeSelected);
       }
     };
 
@@ -102,7 +107,7 @@ export const CustomDateTimePicker = () => {
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
-            value={date}
+            value={dateNow}
             mode={displayMode}
             display="spinner"
             style={{backgroundColor: '#ff8f00', marginVertical: 16}}

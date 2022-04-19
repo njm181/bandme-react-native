@@ -35,8 +35,17 @@ export const useValidateCheckbox = () => {
         }
     };
 
+    const checkboxValidate = (): Boolean => {
+        if (checkboxSelected.advertising || checkboxSelected.search) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
   return {
     setEnableCheckbox,
     checkboxSelected,
+    checkboxValidate,
   };
 };

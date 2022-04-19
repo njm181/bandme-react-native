@@ -5,7 +5,6 @@ export const useValidateCreatePostButton = () => {
     const [isEnableButton, setIsEnableButton] = useState({
         Title: false,
         Description: false,
-        Checkbox: false,
     });
 
     const validateFieldsToEnableButton = (fieldValue: boolean, name: string) => {
@@ -15,5 +14,6 @@ export const useValidateCreatePostButton = () => {
 
   return {
     validateFieldsToEnableButton,
+    isEnableButton,
   };
 }
