@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native';
 
 interface Props {
     title: string;
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
 });

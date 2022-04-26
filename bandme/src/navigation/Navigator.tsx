@@ -9,6 +9,7 @@ import { DashboardScreen } from '../screens/dashboard/DashboardScreen';
 import { RegistrationFormPasswordScreen } from '../screens/login/RegistrationFormPasswordScreen';
 import { RegistrationFormEmailScreen } from '../screens/login/RegistrationFormEmailScreen';
 import { UserAuth } from '../interfaces/UserAuth';
+import { ProfileScreen } from '../screens/profile/ProfileScreen';
 
 
 export type RootStackParams = {
@@ -17,6 +18,7 @@ export type RootStackParams = {
   RegistrationFormEmailScreen: undefined;
   RegistrationFormPasswordScreen: {existUser: Boolean, email: string};
   DashboardScreen: String;
+  ProfileScreen: undefined;
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -37,6 +39,7 @@ export const Navigator = () => {
         <Stack.Screen name="RegistrationFormEmailScreen" component={RegistrationFormEmailScreen} />
         <Stack.Screen name="RegistrationFormPasswordScreen" component={RegistrationFormPasswordScreen} />
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     </Stack.Navigator>
   );
 };

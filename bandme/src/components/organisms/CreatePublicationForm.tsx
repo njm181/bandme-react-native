@@ -20,7 +20,7 @@ export const CreatePublicationForm = () => {
     const { validateFields, setDatePicker, getEventDate, setTimePicker, getEventTime } = useCreatePost();
 
   return (
-
+    //FALTA CARGAR FOTO DE EVENTO DESDE LA GALERIA DEL CELULAR
     <KeyboardAvoidingView
         style={{ flex: 1, padding: 16}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

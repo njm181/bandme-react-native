@@ -72,7 +72,7 @@ export const DashboardScreen = () => {
                 width={'100%'}
             /> */}
             {/* <CustomDateTimePicker/> */}
-            <CreatePublicationForm/>
+            {/* <CreatePublicationForm/> */}
             {/* <TextInputStringNumber
                 placeholder={'Calle'}
                 maxLength={25}
