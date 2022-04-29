@@ -1,10 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/self-closing-comp */
+
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const CardInfoProfile = () => {
+interface Props {
+    title: string;
+    subtitle: string;
+    image: string;
+}
+
+export const CardInfoProfile = ({ title, subtitle, image }: Props) => {
   return (
         <TouchableOpacity
             activeOpacity={0.8}
@@ -50,7 +56,7 @@ export const CardInfoProfile = () => {
                                     height: 50,
                                     borderRadius: 50,
                                 }}
-                                source={{uri:'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png'}}
+                                source={{uri: image}}
                         />
                     </View>
                     <View
@@ -68,20 +74,20 @@ export const CardInfoProfile = () => {
                             }}
                         >
                             <Text
-                                numberOfLines={1}
                                 style={{
-                                    margin: 4,
+                                    marginTop: 4,
+                                    marginHorizontal: 4,
+                                    fontSize: 16,
                                 }}
                             >
-                                Titulo del posteo o Nombre del amigo
+                                {title}
                             </Text>
                             <Text
-                                numberOfLines={1}
                                 style={{
-                                    margin: 4,
+                                    marginHorizontal: 4,
                                 }}
                             >
-                                si es evento: fecha y hora/ si es amigo: tipo banda,music, lugar
+                                {subtitle}
                             </Text>
                         </View>
                     </View>

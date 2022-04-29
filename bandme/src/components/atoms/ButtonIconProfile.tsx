@@ -7,9 +7,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 interface Props {
     imageSource: string | null;
     isProfileImage: boolean;
+    iconSize?: number;
 }
 
-export const ButtonIconProfile = ({ imageSource, isProfileImage }: Props) => {
+export const ButtonIconProfile = ({ imageSource, isProfileImage, iconSize = 45}: Props) => {
 
     const localImageSource = require('../../assets/ic_guitar_player_128.png');
 
@@ -27,8 +28,8 @@ export const ButtonIconProfile = ({ imageSource, isProfileImage }: Props) => {
                 !isProfileImage ?
                     <Icon
                     style={styles.icon}
-                    name= { imageSource }
-                    size={45}
+                    name={ imageSource }
+                    size={iconSize}
                     color= "#000000"
                 /> :
                 <Image
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
         width: 45,
         height: 45,
         marginVertical: 4,
-        marginRight: 8,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
     },
     image: {
         width: 45,
@@ -55,8 +57,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     icon: {
-        width: 45,
-        height: 45,
         borderRadius: 25,
     },
 });

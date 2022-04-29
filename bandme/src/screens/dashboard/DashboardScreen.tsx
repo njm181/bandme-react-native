@@ -30,9 +30,9 @@ export const DashboardScreen = () => {
             de forma global para abastecer el resto de los flujos
             en login no amerita usarlo ya que no hay persistencia de datos en ese flujo
             mas que pasaje de parametros de una vista a la otra de forma directa */}
-            {/* <Header/> */}
-            {/* <Post/> */}
-            {/* <ListPost/> */}
+            <Header/>
+            {/* <Post/> */}{/* los que van dentro de la lista de posteos */}
+            <ListPost/>
             {/* <DetailsButtons/> */}
             {/* <PublicationDetailCard/> */}
             {/* <PublicationDetail/> */}
