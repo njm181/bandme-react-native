@@ -10,6 +10,9 @@ import { RegistrationFormPasswordScreen } from '../screens/login/RegistrationFor
 import { RegistrationFormEmailScreen } from '../screens/login/RegistrationFormEmailScreen';
 import { UserAuth } from '../interfaces/UserAuth';
 import { ProfileScreen } from '../screens/profile/ProfileScreen';
+import { PublicationDetailScreen } from '../screens/publication/PublicationDetailScreen';
+import { CreateEditPublicationScreen } from '../screens/publication/CreateEditPublicationScreen';
+import { NotificationCenterScreen } from '../screens/notification/NotificationCenterScreen';
 
 
 export type RootStackParams = {
@@ -19,6 +22,9 @@ export type RootStackParams = {
   RegistrationFormPasswordScreen: {existUser: Boolean, email: string};
   DashboardScreen: String;
   ProfileScreen: undefined;
+  PublicationDetailScreen: undefined;
+  CreateEditPublicationScreen: undefined;
+  NotificationCenterScreen: undefined;
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -40,6 +46,9 @@ export const Navigator = () => {
         <Stack.Screen name="RegistrationFormPasswordScreen" component={RegistrationFormPasswordScreen} />
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="PublicationDetailScreen" component={PublicationDetailScreen} />
+        <Stack.Screen name="CreateEditPublicationScreen" component={CreateEditPublicationScreen} />
+        <Stack.Screen name="NotificationCenterScreen" component={NotificationCenterScreen} />
     </Stack.Navigator>
   );
 };

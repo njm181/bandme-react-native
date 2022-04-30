@@ -1,12 +1,10 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 
 interface Props {
   imageSource: string;
-  heightSource: number;
-  borderRadius: number
+  heightSource?: number;
+  borderRadius?: number;
 }
 
 export const ImagePost = ({imageSource, heightSource = 200, borderRadius = 15}: Props) => {
@@ -14,15 +12,15 @@ export const ImagePost = ({imageSource, heightSource = 200, borderRadius = 15}: 
 
   return (
     <Image
-        style={ [styles.image, {height: heightSource, borderRadius: borderRadius}] }
-        source={ {uri: imageSource}}
-    />
+          style={ [styles.image, {height: heightSource, borderRadius: borderRadius}] }
+          source={ {uri: imageSource}}
+      />
   );
 };
 
 const styles = StyleSheet.create({
     image: {
-        width: '100%',
+        width: '95%',
         alignSelf: 'center',
         marginVertical: 12,
     },

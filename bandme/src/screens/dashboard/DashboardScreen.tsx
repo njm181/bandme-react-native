@@ -1,26 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ButtonLogin } from '../../components/atoms/ButtonLogin';
-import { CheckBoxCustom } from '../../components/atoms/CheckBoxCustom';
-import { TextInputEmail } from '../../components/atoms/TextInputEmail';
-import { TextInputStringNumber } from '../../components/atoms/TextInputStringNumber';
-import { CustomDateTimePicker } from '../../components/molecules/ CustomDateTimePicker';
-import { ButtonCircleLikeShare } from '../../components/molecules/ButtonCircleLikeShare';
 import { Header } from '../../components/molecules/Header';
-import { CreatePublicationForm } from '../../components/organisms/CreatePublicationForm';
-import { DetailsButtons } from '../../components/organisms/DetailsButtons';
 import { ListPost } from '../../components/organisms/ListPost';
-import { PublicationDetail } from '../../components/organisms/PublicationDetail';
-import { PublicationDetailCard } from '../../components/organisms/PublicationDetailCard';
-import { useValidateTextInput } from '../../hooks/useValidateTextInput';
+import { useDashboardNavigationOptions } from '../../hooks/useDashboardNavigationOptions';
+import { RootStackParams } from '../../navigation/Navigator';
 
-export const DashboardScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'DashboardScreen'> {}
+
+export const DashboardScreen = ({navigation}: Props) => {
 
 //  PROHIBIR HACER BACK, SI HACE BACK QUE MANDE AL WELCOME Y CIERRE LA SESION O QUE PREGUNTE SI DESEA SALIR DE LA APP
-
+    const { onDashboardNavigationOptions } = useDashboardNavigationOptions(navigation);
     return (
         <SafeAreaView
             style={{flex: 1}}
@@ -30,61 +22,12 @@ export const DashboardScreen = () => {
             de forma global para abastecer el resto de los flujos
             en login no amerita usarlo ya que no hay persistencia de datos en ese flujo
             mas que pasaje de parametros de una vista a la otra de forma directa */}
-            <Header/>
-            {/* <Post/> */}{/* los que van dentro de la lista de posteos */}
-            <ListPost/>
-            {/* <DetailsButtons/> */}
-            {/* <PublicationDetailCard/> */}
-            {/* <PublicationDetail/> */}
-            {/* <TextInputStringNumber
-                placeholder={'Titulo'}
-                maxLength={25}
-                keyboardType={'default'}
-                isMultiline={false}
-                width={'100%'}
+            <Header
+                onNavigate={ onDashboardNavigationOptions }
             />
-            <TextInputStringNumber
-                placeholder={'Calle'}
-                maxLength={25}
-                keyboardType={'default'}
-                isMultiline={false}
-                width={'50%'}
+            <ListPost
+                onNavigate={ onDashboardNavigationOptions }
             />
-            <TextInputStringNumber
-                placeholder={'altura'}
-                maxLength={6}
-                keyboardType={'number-pad'}
-                isMultiline={false}
-                width={'20%'}
-            />
-            <TextInputStringNumber
-                placeholder={'Codigo Postal'}
-                maxLength={6}
-                keyboardType={'number-pad'}
-                isMultiline={false}
-                width={'20%'}
-            />
-            <TextInputStringNumber
-                placeholder={'Descripcion'}
-                maxLength={255}
-                keyboardType={'default'}
-                isMultiline={true}
-                width={'100%'}
-            /> */}
-            {/* <CustomDateTimePicker/> */}
-            {/* <CreatePublicationForm/> */}
-            {/* <TextInputStringNumber
-                placeholder={'Calle'}
-                maxLength={25}
-                keyboardType={'default'}
-                isMultiline={false}
-                width={null}
-                textState={textState}
-                validateTextInput={validateTextInput}
-            /> */}
-            {/* <CheckBoxCustom
-                title= 'Title del checkbox'
-            /> */}
         </SafeAreaView>
     );
 };

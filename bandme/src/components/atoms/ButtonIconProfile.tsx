@@ -8,9 +8,10 @@ interface Props {
     imageSource: string | null;
     isProfileImage: boolean;
     iconSize?: number;
+    onPressAction?: () => void;
 }
 
-export const ButtonIconProfile = ({ imageSource, isProfileImage, iconSize = 45}: Props) => {
+export const ButtonIconProfile = ({ imageSource, isProfileImage, iconSize = 45, onPressAction}: Props) => {
 
     const localImageSource = require('../../assets/ic_guitar_player_128.png');
 
@@ -20,17 +21,17 @@ export const ButtonIconProfile = ({ imageSource, isProfileImage, iconSize = 45}:
 
   return (
         <TouchableOpacity
-        style={ styles.button }
+            onPress={ onPressAction }//llamo al hook para ejecutar la navegacion
+            style={ styles.button }
             activeOpacity={0.5}
-            onPress={ () => console.log('click buton icon profile!')}
         >
             {
                 !isProfileImage ?
                     <Icon
-                    style={styles.icon}
-                    name={ imageSource }
-                    size={iconSize}
-                    color= "#000000"
+                        style={styles.icon}
+                        name={ imageSource }
+                        size={iconSize}
+                        color= "#000000"
                 /> :
                 <Image
                     style={styles.image}
@@ -50,8 +51,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     image: {
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
         borderRadius: 25,
         borderColor: 'black',
         borderWidth: 1,

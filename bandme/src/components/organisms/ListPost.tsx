@@ -4,7 +4,11 @@ import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Post } from '../molecules/Post';
 
-export const ListPost = () => {
+interface Props {
+  onNavigate: { goToProfile: () => void; goToCreatePost: () => void; goToNotificationCenter: () => void; goToPublicationDetail: () => void; };
+}
+
+export const ListPost = ({ onNavigate }: Props) => {
 
   const DATA = [
           {
@@ -56,7 +60,7 @@ export const ListPost = () => {
     <View style={{flex: 1}}>
         <FlatList
         data={DATA}
-        renderItem={ ({item}: any) => <Post publication= {item}/> }
+        renderItem={ ({item}: any) => <Post publication={item} onNavigate={onNavigate}/> }
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator = {false}
         pagingEnabled={true}
