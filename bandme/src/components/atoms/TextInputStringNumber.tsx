@@ -5,7 +5,7 @@ import { KeyboardTypeOptions, StyleSheet, TextInput, View } from 'react-native';
 
 interface Props {
   placeholder: string;
-  maxLength: number;
+  maxLength?: number;
   keyboardType: KeyboardTypeOptions;
   isMultiline: boolean;
   width: string | null;
@@ -16,7 +16,7 @@ interface Props {
   validateButtonState: (fieldValue: boolean, name: string) => void;
 }
 
-export const TextInputStringNumber = ({ placeholder, maxLength, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState }: Props) => {
+export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState }: Props) => {
 
     const [text, onChangeText] = useState('');
     /* const [number, onChangeNumber] = React.useState(null); */

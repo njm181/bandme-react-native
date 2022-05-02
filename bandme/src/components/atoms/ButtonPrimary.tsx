@@ -8,11 +8,12 @@ interface Props{
     height?: number;
     width?: number | string;
     color?: string;
-    clickAction: () => void;
-    isDisabled: boolean;
+    clickAction?: () => void;
+    isDisabled?: boolean;
+    fontSize?: number;
 }
 
-export const ButtonPrimary = ({ title, height = 50, width = 120, color = '#ff8f00', clickAction, isDisabled }: Props) => {
+export const ButtonPrimary = ({ title, height = 50, width = 120, color = '#ff8f00', clickAction, isDisabled, fontSize = 20 }: Props) => {
   return (
     <TouchableOpacity
         style={[
@@ -29,7 +30,7 @@ export const ButtonPrimary = ({ title, height = 50, width = 120, color = '#ff8f0
         activeOpacity={0.5}>
             <Text
                 style={{
-                    fontSize: 20,
+                    fontSize: fontSize,
                     color: 'white',
                     fontWeight: 'bold',
                 }}

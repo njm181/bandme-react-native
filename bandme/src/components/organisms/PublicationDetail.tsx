@@ -1,14 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View } from 'react-native';
 import { ImagePost } from '../atoms/ImagePost';
+import { ButtonBack } from '../molecules/ButtonBack';
 import { PublicationDetailCard } from './PublicationDetailCard';
 
-export const PublicationDetail = () => {
+interface Props {
+  onNavigate: { goToProfile: () => void; goToBack: () => void; };
+}
+
+export const PublicationDetail = ({onNavigate}: Props) => {
   return (
     <View style={{ backgroundColor: '#eeeeee', flex: 1}}>
-
+        <ButtonBack
+          goToBack= { onNavigate.goToBack }
+        />
         <View>
           <ImagePost
             imageSource={'https://billetto.es/blog/wp-content/uploads/2019/04/hanny-naibaho-388579-unsplash-e1554461063517.jpg'}
@@ -27,7 +33,9 @@ export const PublicationDetail = () => {
                   top: 50,
                 }}>
 
-            <PublicationDetailCard />
+            <PublicationDetailCard
+              onNavigateGoToProfile={onNavigate.goToProfile}
+            />
 
         </View>
 

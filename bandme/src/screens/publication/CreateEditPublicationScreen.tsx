@@ -1,8 +1,14 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react'
 import { CreatePublicationForm } from '../../components/organisms/CreatePublicationForm'
+import { RootStackParams } from '../../navigation/Navigator';
 
-export const CreateEditPublicationScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'CreateEditPublicationScreen'> {}
+
+export const CreateEditPublicationScreen = ({navigation}: Props) => {
   return (
-    <CreatePublicationForm/>
+    <CreatePublicationForm
+      onNavigateToBack={ navigation.goBack }
+    />
   );
 };

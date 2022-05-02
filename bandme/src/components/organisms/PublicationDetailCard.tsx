@@ -1,14 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable prettier/prettier */
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { RootStackParams } from '../../navigation/Navigator';
 import { ButtonIconProfile } from '../atoms/ButtonIconProfile';
 import { TextTitle } from '../atoms/TextTitle';
 import { DetailsButtons } from './DetailsButtons';
 
-export const PublicationDetailCard = () => {
+interface Props{
+    onNavigateGoToProfile: () => void
+}
+
+export const PublicationDetailCard = ({onNavigateGoToProfile}: Props) => {
   return (
           
     <View style={ styles.mainContainer }>
@@ -84,14 +90,17 @@ export const PublicationDetailCard = () => {
                     <ButtonIconProfile
                         isProfileImage={true}
                         imageSource={'https://reactnative.dev/img/tiny_logo.png'} // aca recibe imagen del usuario y si no vacio
+                        onPressAction={ () =>  onNavigateGoToProfile()} //onNavigate.goToCreatePost()
                     />
                     <ButtonIconProfile
                         isProfileImage={true}
                         imageSource={'https://reactnative.dev/img/tiny_logo.png'} // aca recibe imagen del usuario y si no vacio
+                        onPressAction={ () =>  onNavigateGoToProfile()} //onNavigate.goToCreatePost()
                     />
                     <ButtonIconProfile
                         isProfileImage={true}
                         imageSource={'https://reactnative.dev/img/tiny_logo.png'} // aca recibe imagen del usuario y si no vacio
+                        onPressAction={ () =>  onNavigateGoToProfile()} //onNavigate.goToCreatePost()
                     />
                 </View>
 

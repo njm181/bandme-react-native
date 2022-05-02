@@ -9,7 +9,12 @@ export const DetailsButtons = () => {
     <View style = { styles.mainContainer }>
 
         <View style = { styles.roundedButton }>
-            <ButtonPrimary/>
+            <ButtonPrimary
+                title = "Enrroll"
+                fontSize = {15}
+                height={40}
+                clickAction={() => console.log('agendar evento en calendario')}
+            />
         </View>
 
         <View style = { styles.roundedButtonsContainer }>
@@ -18,6 +23,7 @@ export const DetailsButtons = () => {
                     <ButtonCircleLikeShare
                             isLike={false}
                             isShare={true}
+                            onPressAction={ () => console.log('click para compartir evento') }
                         />
                 </View>
 
@@ -25,6 +31,7 @@ export const DetailsButtons = () => {
                 <ButtonCircleLikeShare
                     isLike={false}
                     isShare={false}
+                    onPressAction={ () => console.log('click para dar like') }
                 />
             </View>
 

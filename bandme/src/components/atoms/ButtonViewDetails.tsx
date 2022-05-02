@@ -4,13 +4,13 @@ import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
 interface Props {
-  onPressAction?: () => void;
+  onPressAction: () => void;
 }
 
 export const ButtonViewDetails = ({ onPressAction }: Props ) => {
   return (
     <TouchableOpacity
-      onPress={ onPressAction }
+      onPress={ () => onPressAction() }
     >
         <Image
             style={{

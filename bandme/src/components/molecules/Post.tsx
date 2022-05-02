@@ -81,7 +81,7 @@ export const Post = ({ publication, onNavigate }: Props,) => {
                         />
 
                         <ButtonViewDetails
-                            onPressAction={ () => onNavigate.goToPublicationDetail() }
+                            onPressAction={ onNavigate.goToPublicationDetail }
                         />
 
                     </View>

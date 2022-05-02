@@ -1,7 +1,5 @@
-/* eslint-disable no-lone-blocks */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/self-closing-comp */
 import { IndicatorViewPager, PagerDotIndicator, PagerTabIndicator, PagerTitleIndicator } from '@shankarmorwal/rn-viewpager';
 import React, { useState } from 'react'
 import { Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
@@ -9,10 +7,14 @@ import { Image, Text } from 'react-native-elements';
 import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { CardInfoProfile } from '../../components/molecules/CardInfoProfile';
 import LinearGradient from 'react-native-linear-gradient';
+import { ButtonBack } from '../../components/molecules/ButtonBack';
+import { RootStackParams } from '../../navigation/Navigator';
+import { StackScreenProps } from '@react-navigation/stack';
+import { SocialMediaModal } from '../../components/organisms/SocialMediaModal';
 
+interface Props extends StackScreenProps<RootStackParams, 'ProfileScreen'> {}
 
-
-export const ProfileScreen = () => {
+export const ProfileScreen = ({navigation}: Props) => {
 
     const [getButtonSelected, setButtonSelected] = useState({
         activity: true,
@@ -20,6 +22,13 @@ export const ProfileScreen = () => {
     });
 
     const [showActivities, setShowActivities] = useState(true);
+    const [showModalSocialMedia, setShowModalSocialMedia] = useState(false);
+
+    const setStateModal = () => {
+        if (showModalSocialMedia) {
+            setShowModalSocialMedia(true)
+        }
+    }
 
     const dataScrollableActivities = [
         {
@@ -84,55 +93,57 @@ export const ProfileScreen = () => {
             backgroundColor: '#eeeeee',
         }}
     >
+
         <LinearGradient
                 colors={['#ff8f00', '#eeeeee', '#eeeeee']}
                 style={{
-                    alignItems: 'center',
-                    height: '50%',
-                    marginBottom: 16,
+                    height: '55%',
                 }}
         >
+
+            <ButtonBack
+                goToBack= { navigation.goBack }
+            />
+
             <View
-                style={{alignItems: 'center',}}
+                style={{alignItems: 'center', justifyContent: 'space-between'}}
             >
                 <View
                     style={{
                         width: '100%',
-                        height: '90%',
+                        height: '70%',
                         alignItems: 'center',
                         justifyContent: 'center',
 
                     }}
                 >
-                    <Image
+                    <View
                         style={{
-                            width: 80,
-                            height: 80,
-                        }}
-                        source={{uri:'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png'}}
-                    />
-
-                    <Text
-                        style={{
-                            fontSize: 24,
-                            marginTop: 8,
+                            alignItems: 'center',
+                            justifyContent: 'center',
                         }}
                     >
-                        Nombre Apellido
-                    </Text>
+                        <Image
+                            style={{
+                                width: 70,
+                                height: 70,
+                            }}
+                            source={{uri:'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png'}}
+                        />
 
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            marginTop: 4,
-                        }}
-                    >
-                        City, Country ARG/UK/ETC
-                    </Text>
+                        <Text
+                            style={{
+                                fontSize: 24,
+                                marginTop: 8,
+                            }}
+                        >
+                            Nombre Apellido
+                        </Text>
+                    </View>
                     <View
                         style={{
                             flexDirection: 'row',
-                            marginVertical: 16,
+                            marginVertical: 8,
                         }}
                     >
                         <TouchableOpacity
@@ -141,7 +152,7 @@ export const ProfileScreen = () => {
                         >
                             <Image
                             source={require('../../assets/spotify.png')}
-                            style={{width: 50, height: 50, marginHorizontal: 8}}
+                            style={{width: 40, height: 40, marginHorizontal: 8}}
                         />
                         </TouchableOpacity>
 
@@ -151,7 +162,7 @@ export const ProfileScreen = () => {
                         >
                             <Image
                             source={require('../../assets/instagram.png')}
-                            style={{width: 50, height: 50, marginHorizontal: 8}}
+                            style={{width: 40, height: 40, marginHorizontal: 8}}
                         />
                         </TouchableOpacity>
 
@@ -161,7 +172,7 @@ export const ProfileScreen = () => {
                         >
                             <Image
                             source={require('../../assets/youtube.png')}
-                            style={{width: 50, height: 50, marginHorizontal: 8}}
+                            style={{width: 40, height: 40, marginHorizontal: 8}}
                         />
                         </TouchableOpacity>
                     </View>
@@ -190,55 +201,13 @@ export const ProfileScreen = () => {
                         Breve descripcion de la persona/lugar/banda
                     </Text>
                 </View>
-
-                <TouchableOpacity
-                    style={{
-                        height: 40,
-                        width: 130,
-                        flexDirection: 'row',
-                        backgroundColor: '#ff8f00',
-                        borderRadius: 30,
-                        alignItems: 'center',
-                        shadowColor: '#000',
-                        shadowOffset: {
-                            width: 0,
-                            height: 2,
-                        },
-                        shadowOpacity: 0.25,
-                        shadowRadius: 3.84,
-                        elevation: 5,
-                        justifyContent: 'center',
-                        marginTop: 16,
-                    }}
-                    activeOpacity={0.80}
-                    onPress={ () => console.log('click en boton follow/unfollow/edit') }
-                >
-                    <Text
-                        style={{
-                            color: 'white',
-                            fontSize: 15,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {
-                        //if is my profile = true button = edit, is not my profile, if i am watching a person's profile that i am do not following button = follow
-                        //, if i am following the person button = unfollow
-                           false ? 'Edit' :
-                            false ? 'Unfollow'
-                                :
-                                    'Follow'
-
-                        }
-                    </Text>
-                </TouchableOpacity>
             </View>
-
+            <SocialMediaModal/>
         </LinearGradient>
         {/* prender y apagar el style del boton segun estado seleccionado y en base al estado seleccionado mostrar un contenido u otro */}
         <View
             style={{
                 flex: 1,
-                marginTop: 16,
             }}
         >
             <View
@@ -352,7 +321,6 @@ const style = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         justifyContent: 'center',
-        marginTop: 16,
     },
     buttonPagerOn: {
         height: 40,
@@ -372,7 +340,6 @@ const style = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         justifyContent: 'center',
-        marginTop: 16,
     },
 });
 

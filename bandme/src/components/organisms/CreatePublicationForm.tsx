@@ -11,8 +11,13 @@ import { CheckboxCreatePost } from '../atoms/CheckboxCreatePost';
 import { TextInputStringNumber } from '../atoms/TextInputStringNumber';
 import { TextTitle } from '../atoms/TextTitle';
 import { CustomDateTimePicker } from '../molecules/ CustomDateTimePicker';
+import { ButtonBack } from '../molecules/ButtonBack';
 
-export const CreatePublicationForm = () => {
+interface Props {
+    onNavigateToBack: () => void;
+}
+
+export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
 
     const { setEnableCheckbox, checkboxSelected, checkboxValidate } = useValidateCheckbox();
     const { validateTextInput, input } = useValidateTextInput();
@@ -25,10 +30,14 @@ export const CreatePublicationForm = () => {
         style={{ flex: 1, padding: 16}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-        <ScrollView
-            contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column', paddingBottom: 16 }}
-        >
+        <ButtonBack
+                goToBack= { onNavigateToBack }
+                paddingStart={0}
+        />
 
+        <ScrollView
+            contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column', paddingBottom: 16, marginTop: 16 }}
+        >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
                 <View style={{justifyContent: 'flex-start'}}>
