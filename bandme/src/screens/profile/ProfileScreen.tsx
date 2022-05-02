@@ -202,7 +202,15 @@ export const ProfileScreen = ({navigation}: Props) => {
                     </Text>
                 </View>
             </View>
-            <SocialMediaModal/>
+            {/* //if is my profile = true button = edit, is not my profile, if i am watching a person's profile that i am do not following button = follow
+                //, if i am following the person button = unfollow
+                /* false ? 'Edit' :
+                    false ? 'Unfollow'
+                        :
+                            'Follow'*/}
+            <SocialMediaModal
+                titleButton={'Edit'}
+            />
         </LinearGradient>
         {/* prender y apagar el style del boton segun estado seleccionado y en base al estado seleccionado mostrar un contenido u otro */}
         <View

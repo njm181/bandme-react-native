@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { Alert, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
 
-export const SocialMediaModal = () => {
+interface Props {
+  titleButton: string;
+}
+
+export const SocialMediaModal = ({titleButton}: Props) => {
 
 const [modalVisible, setModalVisible] = useState(false);//false
 
@@ -98,13 +102,9 @@ const [text, onChangeText] = React.useState('');
                 }}
             >
                 {
-                //if is my profile = true button = edit, is not my profile, if i am watching a person's profile that i am do not following button = follow
-                //, if i am following the person button = unfollow
-                false ? 'Edit' :
-                    false ? 'Unfollow'
-                        :
-                            'Follow'
-
+                  titleButton == 'Edit' ? 'Edit' :
+                    titleButton == 'Follow' ? 'Follow' : 
+                      'Unfollow' 
                 }
             </Text>
         </TouchableOpacity>
