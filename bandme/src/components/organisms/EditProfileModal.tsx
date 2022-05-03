@@ -7,7 +7,7 @@ interface Props {
   titleButton: string;
 }
 
-export const SocialMediaModal = ({titleButton}: Props) => {
+export const EditProfileModal = ({titleButton}: Props) => {
 
 const [modalVisible, setModalVisible] = useState(false);//false
 
@@ -28,14 +28,77 @@ const [text, onChangeText] = React.useState('');
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Ingrese el link de su perfil de la red social que seleccionó</Text>
+            <View
+              style={[
+                styles.input,
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                },
+              ]}
+            >
+              <Text>Upload a picture</Text>
+              <ButtonPrimary
+                title={'upload'}
+                height={25}
+                width={50}
+                fontSize={12}
+                clickAction={() => console.log('click para subir foto')}
+              />
+            </View>
+
+            <View
+              style={styles.input}
+            >
+              <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder="Ingrese el link del perfil de su Spotify"
+                />
+            </View>
+
+            <View
+              style={styles.input}
+            >
+              <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder="Ingrese el link del perfil de su Instagram"
+                />
+            </View>
+
+            <View
+              style={styles.input}
+            >
+              <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder="Ingrese el link del perfil de su YouTube"
+                />
+            </View>
+
+            <View
+              style={styles.input}
+            >
+              <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeText}
+                    value={text}
+                    placeholder="https://www.instagram.com/officialphilcollins/"
+                />
+            </View>
+            {/* <Text style={styles.modalText}>Ingrese el link de su perfil de la red social que seleccionó</Text>
 
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeText}
                 value={text}
                 placeholder="https://www.instagram.com/officialphilcollins/"
-            />
+            /> */}
 
             {/* <Pressable
               style={[styles.button, styles.buttonClose]}

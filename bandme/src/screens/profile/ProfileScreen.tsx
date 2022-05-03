@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { ButtonBack } from '../../components/molecules/ButtonBack';
 import { RootStackParams } from '../../navigation/Navigator';
 import { StackScreenProps } from '@react-navigation/stack';
-import { SocialMediaModal } from '../../components/organisms/SocialMediaModal';
+import { EditProfileModal } from '../../components/organisms/EditProfileModal';
 
 interface Props extends StackScreenProps<RootStackParams, 'ProfileScreen'> {}
 
@@ -208,7 +208,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                     false ? 'Unfollow'
                         :
                             'Follow'*/}
-            <SocialMediaModal
+            <EditProfileModal
                 titleButton={'Edit'}
             />
         </LinearGradient>
