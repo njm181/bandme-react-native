@@ -59,12 +59,15 @@ export const ListPost = ({ onNavigate }: Props) => {
   return (
     <View style={{flex: 1}}>
         <FlatList
-        data={DATA}
-        renderItem={ ({item}: any) => <Post publication={item} onNavigate={onNavigate}/> }
-        keyExtractor={(item) => item.id.toString()}
-        showsVerticalScrollIndicator = {false}
-        pagingEnabled={true}
-    />
+          style={{
+            height: '100%',
+          }}
+          data={DATA}
+          renderItem={ ({item}: any) => <Post publication={item} onNavigate={onNavigate}/> }
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator = {false}
+          pagingEnabled={true}
+        />
     </View>
   );
 };
@@ -80,3 +83,4 @@ export const ListPost = ({ onNavigate }: Props) => {
       fontSize: 32,
     },
   }); */
+

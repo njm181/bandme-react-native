@@ -1,7 +1,12 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { Alert, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
+import {ImageLibraryOptions, launchImageLibrary} from 'react-native-image-picker';
+
 
 interface Props {
   titleButton: string;
@@ -11,7 +16,42 @@ export const EditProfileModal = ({titleButton}: Props) => {
 
 const [modalVisible, setModalVisible] = useState(false);//false
 
-const [text, onChangeText] = React.useState('');
+const [textSpotify, onChangeTextSpotify] = React.useState('');
+const [textInstagram, onChangeTextInstagram] = React.useState('');
+const [textYoutube, onChangeTextYoutube] = React.useState('');
+const [textDescription, onChangeTextDescription] = React.useState('');
+const [profileImage, setProfileImage] = React.useState<string | undefined>('');
+
+let options: ImageLibraryOptions  = {
+  maxWidth: 150,
+  maxHeight: 250,
+  mediaType: 'photo',
+  includeBase64: true,
+  selectionLimit: 1,
+};
+
+async function findPhoto() {
+  const result = await launchImageLibrary(options);
+
+  if (result.didCancel) {
+    console.log('El usuario cancelo el proceso');
+  }
+
+  if (result.errorCode != undefined) {
+    console.log('Codigo de error: ' + result.errorCode);
+  }
+
+  if (result.errorMessage != '') {
+    console.log('Error message only debug purpose: ' + result.errorMessage);
+  }
+
+  if (result.assets != undefined){
+    console.log('resultado: ' + result.assets[0].base64);
+    setProfileImage(result.assets[0].base64);
+  } else {
+    console.log('result.asset fue undefined');
+  }
+}
 
   return (
     <View style={styles.centeredView}>
@@ -19,76 +59,83 @@ const [text, onChangeText] = React.useState('');
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-        onDismiss={() => setModalVisible(!modalVisible)}
-        /* onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+        onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }} */
+          onChangeTextSpotify('');
+          onChangeTextInstagram('');
+          onChangeTextYoutube('');
+          onChangeTextDescription('');
+        }}
+        onDismiss={() => setModalVisible(!modalVisible)}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View
               style={[
-                styles.input,
+                styles.inputContainer,
                 {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
+                  paddingHorizontal: 10,
                 },
               ]}
             >
-              <Text>Upload a picture</Text>
+              {
+                profileImage != undefined && profileImage != '' ? <Text>Photo uploaded</Text> : <Text>Upload a photo</Text>
+              }
               <ButtonPrimary
                 title={'upload'}
                 height={25}
                 width={50}
                 fontSize={12}
-                clickAction={() => console.log('click para subir foto')}
+                clickAction={() => findPhoto()}
               />
             </View>
 
             <View
-              style={styles.input}
+              style={styles.inputContainer}
             >
               <TextInput
                     style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
+                    onChangeText={onChangeTextSpotify}
+                    value={textSpotify}
                     placeholder="Ingrese el link del perfil de su Spotify"
                 />
             </View>
 
             <View
-              style={styles.input}
+              style={styles.inputContainer}
             >
               <TextInput
                     style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
+                    onChangeText={onChangeTextInstagram}
+                    value={textInstagram}
                     placeholder="Ingrese el link del perfil de su Instagram"
                 />
             </View>
 
             <View
-              style={styles.input}
+              style={styles.inputContainer}
             >
               <TextInput
                     style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
+                    onChangeText={onChangeTextYoutube}
+                    value={textYoutube}
                     placeholder="Ingrese el link del perfil de su YouTube"
                 />
             </View>
 
             <View
-              style={styles.input}
+              style={styles.inputDescriptionContainer}
             >
               <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
-                    placeholder="https://www.instagram.com/officialphilcollins/"
+                    style={styles.inputDescription}
+                    onChangeText={onChangeTextDescription}
+                    value={textDescription}
+                    multiline={true}
+                    maxLength={200}
+                    placeholder="Ingrese una descripcion acerca de usted"
                 />
             </View>
             {/* <Text style={styles.modalText}>Ingrese el link de su perfil de la red social que seleccionó</Text>
@@ -113,6 +160,11 @@ const [text, onChangeText] = React.useState('');
                 fontSize={16}
                 clickAction={() => {
                     //guardar datos para enviar al hook
+                    console.log(
+                      'Datos guardados: ' +
+                      textSpotify + ' // ' + textInstagram
+                      + ' // ' + textYoutube + ' // ' + textDescription
+                    );
                     setModalVisible(!modalVisible);
                 }}
             />
@@ -166,8 +218,8 @@ const [text, onChangeText] = React.useState('');
             >
                 {
                   titleButton == 'Edit' ? 'Edit' :
-                    titleButton == 'Follow' ? 'Follow' : 
-                      'Unfollow' 
+                    titleButton == 'Follow' ? 'Follow' :
+                      'Unfollow'
                 }
             </Text>
         </TouchableOpacity>
@@ -222,8 +274,26 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         height: 40,
-        margin: 12,
-        borderWidth: 1,
         padding: 10,
       },
+      inputContainer: {
+        width: '100%',
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        paddingHorizontal: 5,
+      },
+      inputDescription: {
+        width: '100%',
+        height: 100,
+        padding: 10,
+        textAlignVertical: 'top',
+      },
+      inputDescriptionContainer: {
+        width: '100%',
+        height: 100,
+        margin: 12,
+        borderWidth: 1,
+      }
   });
+

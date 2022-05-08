@@ -82,6 +82,12 @@ export const ProfileScreen = ({navigation}: Props) => {
             subtitle: 'Artista',
             image: 'https://i.pinimg.com/originals/bd/11/21/bd1121d056ec8e2d3f333372cfef5e51.jpg',
         },
+        {
+            id: 5,
+            title: 'Amigo 5',
+            subtitle: 'Artista',
+            image: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png',
+        },
     ];
 
 
@@ -253,15 +259,35 @@ export const ProfileScreen = ({navigation}: Props) => {
                         }
                     }
                 >
-                    <Text
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: '#f57c00',
+                                fontSize: 15,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Friends
+                        </Text>
+
+                        <Text
                         style={{
                             color: '#f57c00',
                             fontSize: 15,
                             fontWeight: 'bold',
                         }}
                     >
-                        Friends
+                        (
+                        {
+                            dataScrollableFriends.length > 999 ? '+999' : dataScrollableFriends.length
+                        }
+                        )
                     </Text>
+                    </View>
                 </TouchableOpacity>
             </View>
 
@@ -283,7 +309,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                                                 height: '100%',
                                             }}
                                         >
-                                            <FlatList 
+                                            <FlatList
                                                 data={dataScrollableActivities}
                                                 renderItem={(item) => CardInfoProfile(item.item)}
                                                 keyExtractor={(item) => item.id.toString()}
@@ -350,4 +376,5 @@ const style = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
 

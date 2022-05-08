@@ -1,20 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-trailing-spaces */
-/* eslint-disable prettier/prettier */
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { RootStackParams } from '../../navigation/Navigator';
+import { Publication } from '../../interfaces/Publication';
 import { ButtonIconProfile } from '../atoms/ButtonIconProfile';
 import { TextTitle } from '../atoms/TextTitle';
 import { DetailsButtons } from './DetailsButtons';
 
 interface Props{
-    onNavigateGoToProfile: () => void
+    onNavigateGoToProfile: () => void;
+    publication: Publication;
 }
 
-export const PublicationDetailCard = ({onNavigateGoToProfile}: Props) => {
+export const PublicationDetailCard = ({onNavigateGoToProfile, publication}: Props) => {
   return (
           
     <View style={ styles.mainContainer }>
@@ -110,7 +109,9 @@ export const PublicationDetailCard = ({onNavigateGoToProfile}: Props) => {
         <View style={{
             marginTop: 32,
         }}>
-            <DetailsButtons/>
+            <DetailsButtons
+                publicationUrl="www.bandme.com/posteo123" //publication.url
+            />
         </View>
     </View>
   );
@@ -141,3 +142,4 @@ const styles = StyleSheet.create({
         backgroundColor: 'gray',
     },
 });
+

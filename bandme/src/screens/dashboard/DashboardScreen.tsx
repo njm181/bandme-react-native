@@ -1,3 +1,5 @@
+/* eslint-disable no-unreachable */
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
@@ -13,15 +15,15 @@ export const DashboardScreen = ({navigation}: Props) => {
 
 //  PROHIBIR HACER BACK, SI HACE BACK QUE MANDE AL WELCOME Y CIERRE LA SESION O QUE PREGUNTE SI DESEA SALIR DE LA APP
     const { onDashboardNavigationOptions } = useDashboardNavigationOptions(navigation);
-    return (
-        <SafeAreaView
-            style={{flex: 1}}
-        >
-            {/* cuando ya tenga todos los datos del usuario
+    {/* cuando ya tenga todos los datos del usuario
             ahi voy a poder guardalos en un context, o sea usar redux
             de forma global para abastecer el resto de los flujos
             en login no amerita usarlo ya que no hay persistencia de datos en ese flujo
             mas que pasaje de parametros de una vista a la otra de forma directa */}
+    return (
+        <SafeAreaView
+            style={{flex: 1}}
+        >
             <Header
                 onNavigate={ onDashboardNavigationOptions }
             />
@@ -31,6 +33,7 @@ export const DashboardScreen = ({navigation}: Props) => {
         </SafeAreaView>
     );
 };
+
 
 // Realm DB https://docs.mongodb.com/realm/sdk/react-native/
 // o lo guardo en cache https://www.npmjs.com/package/react-native-cache
