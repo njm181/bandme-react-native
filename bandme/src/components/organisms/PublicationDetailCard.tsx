@@ -20,37 +20,37 @@ export const PublicationDetailCard = ({onNavigateGoToProfile, publication}: Prop
 
         <ScrollView>
             
-                <View style={{backgroundColor: 'pink', alignSelf: 'flex-start', marginVertical: 16}}>
+                <View style={{alignSelf: 'flex-start', marginVertical: 16}}>
                     <TextTitle
                         title={'Titulo de la publicacion'}
                         size={25}
                         colour={'black'}/>
                 </View>              
 
-                <View style={{backgroundColor: 'yellow', alignSelf: 'flex-start'}}>
+                <View style={{alignSelf: 'flex-start'}}>
 
                     <View style={ styles.dateContainer }>
                         <Icon
                             style={{ marginEnd: 4 }}
-                            name="time-outline"
+                            name="time"
                             size={15}
                         />
                         <TextTitle
                             title={'12 January 2022 | 12:00am'}
                             size={15}
-                            colour={'#e0e0e0'}/>
+                            colour={'black'}/>
                     </View>
 
                     <View style={ styles.dateContainer }>
                         <Icon
-                            name="location-outline"
+                            name="location"
                             style={{ marginEnd: 4 }}
                             size={15}
                         />
                         <TextTitle
                             title={'Beiro 3033, Villa Devoto, CABA'}
                             size={15}
-                            colour={'#e0e0e0'}/>
+                            colour={'black'}/>
                     </View>
 
                     <View
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
         marginVertical: 4,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: 'gray',
     },
 });
 

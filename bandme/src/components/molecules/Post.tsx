@@ -76,8 +76,8 @@ export const Post = ({ publication, onNavigate }: Props,) => {
                         style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', marginRight: 16}}
                     >
                         <ButtonLikeDislike
-                            onPressAction={ () => console.log('click para dar like o quitar like') }
-                            isLike={ publication.like }
+                            onPressAction={() => console.log('click para dar like o quitar like')}
+                            publication={publication}
                         />
 
                         <ButtonViewDetails
@@ -86,8 +86,7 @@ export const Post = ({ publication, onNavigate }: Props,) => {
 
                     </View>
 
-                    <ButtonSharePost
-                        onPressAction={ () => console.log('click para compartir publicacion') }
+                    <ButtonSharePost url={''}//publication.url
                     />
                 </View>
 

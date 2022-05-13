@@ -57,7 +57,6 @@ export const ListPost = ({ onNavigate }: Props) => {
 
 
   return (
-    <View style={{flex: 1}}>
         <FlatList
           style={{
             height: '100%',
@@ -68,7 +67,6 @@ export const ListPost = ({ onNavigate }: Props) => {
           showsVerticalScrollIndicator = {false}
           pagingEnabled={true}
         />
-    </View>
   );
 };
 

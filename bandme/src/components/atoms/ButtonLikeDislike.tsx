@@ -16,13 +16,13 @@ export const ButtonLikeDislike = ({ isLike, onPressAction, publication }: Props 
     const like = require('../../assets/like_32.png');
     const dislike = require('../../assets/dislike_32.png');
 
-    const [getLike, setLike] = useState(false);
+    const [getLike, setLike] = useState(publication.like);
 
     const setLikeState = () => {
-      if (publication.like) {
-        setLike(false)
+      if (getLike == true) {
+        setLike(false);
       } else {
-        setLike(true)
+        setLike(true);
       }
     }
 
@@ -31,7 +31,7 @@ export const ButtonLikeDislike = ({ isLike, onPressAction, publication }: Props 
       onPress={ 
         () => {
           setLikeState();
-          console.log('pulication like: ' + publication.like);
+          console.log('pulication like: ' + getLike);
 
        }
       }

@@ -2,16 +2,20 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
+import { useSharePublication } from '../../hooks/useSharePublication';
 
 interface Props {
-  onPressAction?: () => void;
+  url: string
 }
 
 
-export const ButtonSharePost = ({ onPressAction }: Props ) => {
+export const ButtonSharePost = ({ url }: Props ) => {
+
+  const { sharePublication } = useSharePublication();
+
   return (
     <TouchableOpacity
-      onPress={ onPressAction }
+      onPress={ () => sharePublication(url)}
     >
         <Image
           style={{

@@ -13,6 +13,7 @@ import { ProfileScreen } from '../screens/profile/ProfileScreen';
 import { PublicationDetailScreen } from '../screens/publication/PublicationDetailScreen';
 import { CreateEditPublicationScreen } from '../screens/publication/CreateEditPublicationScreen';
 import { NotificationCenterScreen } from '../screens/notification/NotificationCenterScreen';
+import { BottomIosNavigator, Tabs } from './BottomNavigator';
 
 
 export type RootStackParams = {
@@ -25,6 +26,7 @@ export type RootStackParams = {
   PublicationDetailScreen: undefined;
   CreateEditPublicationScreen: undefined;
   NotificationCenterScreen: undefined;
+  Tabs: undefined;
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -44,11 +46,14 @@ export const Navigator = () => {
         <Stack.Screen name="UserTypeScreen" component={UserTypeScreen} />
         <Stack.Screen name="RegistrationFormEmailScreen" component={RegistrationFormEmailScreen} />
         <Stack.Screen name="RegistrationFormPasswordScreen" component={RegistrationFormPasswordScreen} />
-        <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+
+        <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="PublicationDetailScreen" component={PublicationDetailScreen} />
+
+        {/* <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="CreateEditPublicationScreen" component={CreateEditPublicationScreen} />
-        <Stack.Screen name="NotificationCenterScreen" component={NotificationCenterScreen} />
+        <Stack.Screen name="NotificationCenterScreen" component={NotificationCenterScreen} /> */}
     </Stack.Navigator>
   );
 };

@@ -2,6 +2,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Share, StyleSheet, View } from 'react-native';
+import { useSharePublication } from '../../hooks/useSharePublication';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
 import { ButtonCircleLikeShare } from '../molecules/ButtonCircleLikeShare';
 
@@ -11,37 +12,14 @@ interface Props {
 
 export const DetailsButtons = ({ publicationUrl }: Props) => {
 
-    const onShare = async (url: string) => {
-        try {
-            const result = await Share.share({
-                //url
-                message: 'www.bandme.com/posteo-123',
-        });
-
-        if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-              // shared with activity type of result.activityType
-              console.log('shared with activity type of result.activityType');
-            } else {
-              // shared
-              console.log('shared');
-            }
-          } else if (result.action === Share.dismissedAction) {
-            // dismissed
-            console.log('dismissed');
-          }
-        } catch (error) {
-          //alert(error.message);
-          console.log('Error al momento de compartir la publicacion');
-        }
-      };
+    const { sharePublication } = useSharePublication();
 
   return (
     <View style = { styles.mainContainer }>
 
         <View style = { styles.roundedButton }>
             <ButtonPrimary
-                title = "Enrroll"
+                title = "Remember"
                 fontSize = {15}
                 height={40}
                 clickAction={() => console.log('agendar evento en calendario')}
@@ -56,7 +34,7 @@ export const DetailsButtons = ({ publicationUrl }: Props) => {
                             isShare={true}
                             onPressAction={ () => {
                                 console.log('click para compartir evento');
-                                onShare('');
+                                sharePublication(publicationUrl);
                             }
                          }
                         />

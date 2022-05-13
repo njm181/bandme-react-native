@@ -1,8 +1,10 @@
+/* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props {
     title: string;
@@ -10,34 +12,34 @@ interface Props {
     image: string;
 }
 
-export const CardInfoProfile = ({ title, subtitle, image }: Props) => {
-  return (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => console.log('click en card')}
-            style={{
-                width: '100%',
-                height: 70,
-                flexDirection: 'row',
-                backgroundColor: '#fafafa',
-                borderRadius: 10,
-                shadowColor: '#000',
-                shadowOffset: {
-                    width: 0,
-                    height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
+export const CardInfoProfile = ({ title, subtitle, image }: Props,  edit : string) => {
 
-                elevation: 5,
-                paddingHorizontal:6,
+  return (
+        <View
+            style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                borderColor: 'black',
+                borderWidth: 1,
                 marginVertical: 4,
-        }}
+                borderRadius: 10,
+            }}
         >
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={ () => {
+                    console.log('click en carddddddd: ' + edit);
+                }}
+                /* onPress={() => console.log('click en card')} */
+                style={{
+                    width: '90%',
+                    height: 70,
+                    borderRadius: 10,
+                    flexDirection: 'row',
+            }}
+            >
                 <View
                     style={{
-                        width: '100%',
-                        height: 70,
                         flexDirection: 'row',
                         borderRadius: 10,
                 }}
@@ -92,7 +94,37 @@ export const CardInfoProfile = ({ title, subtitle, image }: Props) => {
                         </View>
                     </View>
                 </View>
-
-        </TouchableOpacity>
+            </TouchableOpacity>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    width: 100,
+                    height: '90%',
+                    alignItems: 'center',
+                    marginEnd: 8,
+                }}
+            >
+                <TouchableOpacity
+                    onPress={() => console.log('Edit posteo')}
+                    style={{
+                    }}
+                >
+                    <Icon
+                        name="create"
+                        size={25}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => console.log('Delete posteo')}
+                    style={{
+                    }}
+                >
+                    <Icon
+                        name="trash"
+                        size={25}
+                    />
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 };

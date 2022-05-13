@@ -12,10 +12,10 @@ export const NotificationCenterScreen = ({navigation}: Props) => {
   return (
 
     <View>
-      <ButtonBack
+      {/* <ButtonBack
         goToBack= { navigation.goBack }
       />
-
+ */}
       <Text>Notifications's center
           para mostrar publicaciones pagadas
             de eventos artistas, bandas, que buscan 

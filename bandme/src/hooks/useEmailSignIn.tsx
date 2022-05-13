@@ -8,7 +8,7 @@ export const useEmailSignIn = (navigation : StackNavigationProp<RootStackParams,
     const handleEmailLogin = () => {
         console.log('Login de email');
         //navigation.navigate('RegistrationFormEmailScreen');
-        navigation.navigate('DashboardScreen', 'prueba');
+        navigation.navigate('Tabs');
     };
 
     return {

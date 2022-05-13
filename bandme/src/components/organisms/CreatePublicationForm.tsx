@@ -30,10 +30,10 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
         style={{ flex: 1, padding: 16}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-        <ButtonBack
+        {/* <ButtonBack
                 goToBack= { onNavigateToBack }
                 paddingStart={0}
-        />
+        /> */}
 
         <ScrollView
             contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column', paddingBottom: 16, marginTop: 16 }}

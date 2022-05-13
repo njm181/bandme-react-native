@@ -19,7 +19,7 @@ export const PublicationDetail = ({onNavigate}: Props) => {
           <ImagePost
             imageSource={'https://billetto.es/blog/wp-content/uploads/2019/04/hanny-naibaho-388579-unsplash-e1554461063517.jpg'}
             heightSource={250}
-            borderRadius={0}
+            borderRadius={10}
           />
         </View>
 

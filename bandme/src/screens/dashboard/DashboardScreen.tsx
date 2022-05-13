@@ -1,10 +1,10 @@
-/* eslint-disable no-unreachable */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
+import { View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Header } from '../../components/molecules/Header';
 import { ListPost } from '../../components/organisms/ListPost';
 import { useDashboardNavigationOptions } from '../../hooks/useDashboardNavigationOptions';
 import { RootStackParams } from '../../navigation/Navigator';
@@ -22,14 +22,24 @@ export const DashboardScreen = ({navigation}: Props) => {
             mas que pasaje de parametros de una vista a la otra de forma directa */}
     return (
         <SafeAreaView
-            style={{flex: 1}}
+            style={{flex: 1, paddingHorizontal: 16}}
         >
-            <Header
+            {/* <Header
                 onNavigate={ onDashboardNavigationOptions }
-            />
-            <ListPost
-                onNavigate={ onDashboardNavigationOptions }
-            />
+            /> */}
+            <ScrollView>
+                <View>
+                    <ScrollView horizontal={true} contentContainerStyle={{width: '100%'}}>
+                        <View
+                            style={{width: '100%'}}
+                        >
+                            <ListPost
+                                onNavigate={ onDashboardNavigationOptions }
+                            /> 
+                        </View>
+                    </ScrollView>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };

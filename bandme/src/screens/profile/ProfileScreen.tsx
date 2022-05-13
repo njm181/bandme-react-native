@@ -107,9 +107,9 @@ export const ProfileScreen = ({navigation}: Props) => {
                 }}
         >
 
-            <ButtonBack
+            {/* <ButtonBack
                 goToBack= { navigation.goBack }
-            />
+            /> */}
 
             <View
                 style={{alignItems: 'center', justifyContent: 'space-between'}}
@@ -117,7 +117,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                 <View
                     style={{
                         width: '100%',
-                        height: '70%',
+                        height: '80%',
                         alignItems: 'center',
                         justifyContent: 'center',
 
@@ -215,7 +215,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                         :
                             'Follow'*/}
             <EditProfileModal
-                titleButton={'Edit'}
+                titleButton={'Edit'} //este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
             />
         </LinearGradient>
         {/* prender y apagar el style del boton segun estado seleccionado y en base al estado seleccionado mostrar un contenido u otro */}
@@ -295,7 +295,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                 style={{
                     flex: 1,
                     paddingTop: 4,
-                    paddingHorizontal: 8,
+                    marginHorizontal: 4,
                 }}
             >
                 {/* depende el estado si esta en Activity o Friends muestro un contenido dentro del view u otro */}
@@ -311,7 +311,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                                         >
                                             <FlatList
                                                 data={dataScrollableActivities}
-                                                renderItem={(item) => CardInfoProfile(item.item)}
+                                                renderItem={(item) => CardInfoProfile(item.item, 'edit')}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
                                                 keyExtractor={(item) => item.id.toString()}
                                             />
                                         </View> :
@@ -324,7 +324,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                                 >
                                     <FlatList 
                                         data={dataScrollableFriends}
-                                        renderItem={(item) => CardInfoProfile(item.item)}
+                                        renderItem={(item) => CardInfoProfile(item.item, 'edit')}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
                                         keyExtractor={(item) => item.id.toString()}
                                     />
                                 </View>
