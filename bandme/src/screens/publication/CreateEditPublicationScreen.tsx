@@ -5,10 +5,11 @@ import { RootStackParams } from '../../navigation/Navigator';
 
 interface Props extends StackScreenProps<RootStackParams, 'CreateEditPublicationScreen'> {}
 
-export const CreateEditPublicationScreen = ({navigation}: Props) => {
+export const CreateEditPublicationScreen = ({navigation, route}: Props) => {
   return (
     <CreatePublicationForm
       onNavigateToBack={ navigation.goBack }
+      route={ route }
     />
   );
 };

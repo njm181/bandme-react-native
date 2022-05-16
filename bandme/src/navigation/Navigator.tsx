@@ -14,6 +14,7 @@ import { PublicationDetailScreen } from '../screens/publication/PublicationDetai
 import { CreateEditPublicationScreen } from '../screens/publication/CreateEditPublicationScreen';
 import { NotificationCenterScreen } from '../screens/notification/NotificationCenterScreen';
 import { BottomIosNavigator, Tabs } from './BottomNavigator';
+import { PublicationDetail } from '../interfaces/PublicationDetail';
 
 
 export type RootStackParams = {
@@ -24,7 +25,7 @@ export type RootStackParams = {
   DashboardScreen: String;
   ProfileScreen: undefined;
   PublicationDetailScreen: undefined;
-  CreateEditPublicationScreen: undefined;
+  CreateEditPublicationScreen: undefined | PublicationDetail;
   NotificationCenterScreen: undefined;
   Tabs: undefined;
 }

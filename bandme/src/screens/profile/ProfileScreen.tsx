@@ -11,10 +11,13 @@ import { ButtonBack } from '../../components/molecules/ButtonBack';
 import { RootStackParams } from '../../navigation/Navigator';
 import { StackScreenProps } from '@react-navigation/stack';
 import { EditProfileModal } from '../../components/organisms/EditProfileModal';
+import { useEditPublication } from '../../hooks/useEditPublication';
 
 interface Props extends StackScreenProps<RootStackParams, 'ProfileScreen'> {}
 
 export const ProfileScreen = ({navigation}: Props) => {
+
+    const { getPublicationDetails } = useEditPublication(navigation);
 
     const [getButtonSelected, setButtonSelected] = useState({
         activity: true,
@@ -32,25 +35,25 @@ export const ProfileScreen = ({navigation}: Props) => {
 
     const dataScrollableActivities = [
         {
-            id: 1,
+            id: '1',
             title: 'Titulo',
             subtitle: 'Subtitle Subtitle Subtitle Subtitle Subtitle',
             image: 'https://i.pinimg.com/originals/bd/11/21/bd1121d056ec8e2d3f333372cfef5e51.jpg',
         },
         {
-            id: 2,
+            id: '2',
             title: 'Titulo',
             subtitle: 'Subtitle Subtitle Subtitle Subtitle Subtitle',
             image: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png',
         },
         {
-            id: 3,
+            id: '3',
             title: 'Titulo',
             subtitle: 'Subtitle Subtitle Subtitle Subtitle Subtitle',
             image: 'https://64.media.tumblr.com/21d593a7781c3273386723c615c9e1bb/94f36ac9ecfb6135-16/s1280x1920/6fa6faa9f4dc74932662148059388be012186d77.jpg',
         },
         {
-            id: 4,
+            id: '4',
             title: 'Titulo',
             subtitle: 'Subtitle Subtitle Subtitle Subtitle Subtitle',
             image: 'https://i.pinimg.com/originals/b9/6d/f5/b96df58723286be88e69c94570bbce06.png',
@@ -59,31 +62,31 @@ export const ProfileScreen = ({navigation}: Props) => {
 
     const dataScrollableFriends = [
         {
-            id: 1,
+            id: '1',
             title: 'Amigo 1',
             subtitle: 'Artista',
             image: 'https://i.pinimg.com/originals/b9/6d/f5/b96df58723286be88e69c94570bbce06.png',
         },
         {
-            id: 2,
+            id: '2',
             title: 'Amigo 2',
             subtitle: 'Banda',
             image: 'https://64.media.tumblr.com/21d593a7781c3273386723c615c9e1bb/94f36ac9ecfb6135-16/s1280x1920/6fa6faa9f4dc74932662148059388be012186d77.jpg',
         },
         {
-            id: 3,
+            id: '3',
             title: 'Amigo 3',
             subtitle: 'Establecimiento',
             image: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png',
         },
         {
-            id: 4,
+            id: '4',
             title: 'Amigo 4',
             subtitle: 'Artista',
             image: 'https://i.pinimg.com/originals/bd/11/21/bd1121d056ec8e2d3f333372cfef5e51.jpg',
         },
         {
-            id: 5,
+            id: '5',
             title: 'Amigo 5',
             subtitle: 'Artista',
             image: 'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png',
@@ -290,7 +293,6 @@ export const ProfileScreen = ({navigation}: Props) => {
                     </View>
                 </TouchableOpacity>
             </View>
-
             <View
                 style={{
                     flex: 1,
@@ -311,7 +313,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                                         >
                                             <FlatList
                                                 data={dataScrollableActivities}
-                                                renderItem={(item) => CardInfoProfile(item.item, 'edit')}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
+                                                renderItem={(item) => CardInfoProfile(item.item, 'edit', getPublicationDetails)}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
                                                 keyExtractor={(item) => item.id.toString()}
                                             />
                                         </View> :
@@ -324,7 +326,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                                 >
                                     <FlatList 
                                         data={dataScrollableFriends}
-                                        renderItem={(item) => CardInfoProfile(item.item, 'edit')}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
+                                        renderItem={(item) => CardInfoProfile(item.item, 'edit', getPublicationDetails)}//este mismo estado le paso a la lista de posteos y amigos para saber si es cuenta propia o de terceros
                                         keyExtractor={(item) => item.id.toString()}
                                     />
                                 </View>

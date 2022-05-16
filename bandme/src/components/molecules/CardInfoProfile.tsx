@@ -7,12 +7,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props {
+    id: string;
     title: string;
     subtitle: string;
     image: string;
 }
 
-export const CardInfoProfile = ({ title, subtitle, image }: Props,  edit : string) => {
+export const CardInfoProfile = ({ id, title, subtitle, image }: Props,  edit : string, editAction: (id: string) => void) => {
 
   return (
         <View
@@ -105,9 +106,11 @@ export const CardInfoProfile = ({ title, subtitle, image }: Props,  edit : strin
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => console.log('Edit posteo')}
-                    style={{
-                    }}
+                    onPress={() => {
+                        console.log('Edit posteo');
+                        editAction(id);
+                    }
+                }
                 >
                     <Icon
                         name="create"
@@ -116,8 +119,6 @@ export const CardInfoProfile = ({ title, subtitle, image }: Props,  edit : strin
                 </TouchableOpacity>
                 <TouchableOpacity
                 onPress={() => console.log('Delete posteo')}
-                    style={{
-                    }}
                 >
                     <Icon
                         name="trash"

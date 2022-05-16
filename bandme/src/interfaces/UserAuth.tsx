@@ -1,4 +1,4 @@
-import { UserType } from "./UserTypeEnum";
+import { UserType } from './UserTypeEnum';
 
 /* eslint-disable prettier/prettier */
 export interface UserAuth {

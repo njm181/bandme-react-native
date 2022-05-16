@@ -14,11 +14,16 @@ interface Props {
   value: string;
   isRequired: boolean;
   validateButtonState: (fieldValue: boolean, name: string) => void;
+  isPublicationEdit?: boolean;
+  publicationDetail?: string;
 }
 
-export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState }: Props) => {
+export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState, isPublicationEdit = false, publicationDetail }: Props) => {
 
     const [text, onChangeText] = useState('');
+
+    const [textEditPublication, onChangeTextEditPublication] = useState(publicationDetail?.toString());
+
     /* const [number, onChangeNumber] = React.useState(null); */
     const [focus, setFocus] = useState(false);
 
@@ -33,7 +38,8 @@ export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardTy
             focus ? stylesOnBlurFocus.inputOnFocus : null,
           ]}
           onChangeText={ (inputText) =>
-             { console.log('placeholder: ' + placeholder + '// texto ingresado: ' + inputText)
+             {
+              console.log('placeholder: ' + placeholder + '// texto ingresado: ' + inputText)
               onChangeText(inputText);
               validateTextInput(inputText, placeholder)
               console.log('TEXTO INGRESADO: ' + inputText);
@@ -46,7 +52,7 @@ export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardTy
               null
             }
           }
-          value={ text }
+          value={ isPublicationEdit ? textEditPublication : text }
           placeholder = {
             isRequired ? placeholder + ' (Requerido)' : placeholder
           }

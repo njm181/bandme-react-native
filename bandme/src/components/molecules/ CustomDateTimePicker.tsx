@@ -10,9 +10,11 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 interface Props {
   setDatePicker: (dateSelected: string) => void;
   setTimePicker: (timeSelected: string) => void;
+  isPublicationEdit?: boolean;
+  publicationDetail?: (string | undefined)[];
 }
 
-export const CustomDateTimePicker = ({ setDatePicker, setTimePicker }: Props) => {
+export const CustomDateTimePicker = ({ setDatePicker, setTimePicker, isPublicationEdit = false, publicationDetail = null }: Props) => {
 
     const [dateNow, setDate] = useState(new Date());
     const [displayMode, setDisplayMode] = useState<any>('date');
@@ -83,6 +85,10 @@ export const CustomDateTimePicker = ({ setDatePicker, setTimePicker }: Props) =>
             onPress={showDatepicker}>
               <Text style={{color: '#616161', fontWeight: 'bold'}}>
                 {
+                  //  REVISAR PARA ACTUALIZAR AL NUEVO ESTADO QUE SE SELECCIONE
+                  isPublicationEdit ?
+                    publicationDetail[0]
+                  :
                   getEventDate.length > 1 ? getEventDate : 'Event Date'
                 }
               </Text>
@@ -96,7 +102,11 @@ export const CustomDateTimePicker = ({ setDatePicker, setTimePicker }: Props) =>
             onPress={showTimepicker}>
               <Text style={{color: '#616161', fontWeight: 'bold'}}>
                 {
-                  getEventTime.length > 1 ? getEventTime : 'Event Time'
+                  //  REVISAR PARA ACTUALIZAR AL NUEVO ESTADO QUE SE SELECCIONE
+                  isPublicationEdit ? 
+                    publicationDetail[1]
+                    :
+                    getEventTime.length > 1 ? getEventTime : 'Event Time'
                 }
               </Text>
           </TouchableOpacity>

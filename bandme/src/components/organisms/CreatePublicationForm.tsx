@@ -1,4 +1,6 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
+import { RouteProp } from '@react-navigation/native';
 import React from 'react';
 import { Text, View, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -6,6 +8,8 @@ import { useCreatePost } from '../../hooks/useCreatePost';
 import { useValidateCheckbox } from '../../hooks/useValidateCheckbox';
 import { useValidateCreatePostButton } from '../../hooks/useValidateCreatePostButton';
 import { useValidateTextInput } from '../../hooks/useValidateTextInput';
+import { PublicationDetail } from '../../interfaces/PublicationDetail';
+import { RootStackParams } from '../../navigation/Navigator';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
 import { CheckboxCreatePost } from '../atoms/CheckboxCreatePost';
 import { TextInputStringNumber } from '../atoms/TextInputStringNumber';
@@ -15,10 +19,12 @@ import { ButtonBack } from '../molecules/ButtonBack';
 
 interface Props {
     onNavigateToBack: () => void;
+    route: RouteProp<RootStackParams, 'CreateEditPublicationScreen'>;
 }
 
-export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
-
+export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
+    const edit = true;
+    const publicationDetails = route.params;
     const { setEnableCheckbox, checkboxSelected, checkboxValidate } = useValidateCheckbox();
     const { validateTextInput, input } = useValidateTextInput();
     const { validateFieldsToEnableButton, isEnableButton } = useValidateCreatePostButton();
@@ -49,7 +55,6 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                             colour={'#000000'}
                         />
                     </View>
-
                     <TextInputStringNumber
                             placeholder={'Title'}
                             maxLength={25}
@@ -60,6 +65,8 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                             value={ input.Title }
                             validateButtonState={ validateFieldsToEnableButton }
                             isRequired={true}
+                            isPublicationEdit= { edit }
+                            publicationDetail={publicationDetails?.title}
                     />
                     <View style={{ marginTop: 16 }}>
                     <TextInputStringNumber
@@ -72,6 +79,8 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                         value={ input.Calle }
                         validateButtonState={ validateFieldsToEnableButton }
                         isRequired={false}
+                        isPublicationEdit= { edit }
+                        publicationDetail={publicationDetails?.street}
                     />
                     </View>
                     <View style={{ marginTop: 16, flexDirection: 'row'}}>
@@ -86,19 +95,23 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                                 value={ input.Altura }
                                 validateButtonState={ validateFieldsToEnableButton }
                                 isRequired={false}
+                                isPublicationEdit= { edit }
+                                publicationDetail={publicationDetails?.streetNumber}
                             />
                         </View>
                         <View style={{ flex: 1, paddingStart: 4}}>
                             <TextInputStringNumber
-                                  placeholder={'CP'}
-                                  maxLength={6}
-                                  keyboardType={'number-pad'}
-                                  isMultiline={false}
-                                  width={null}
-                                  validateTextInput={validateTextInput}
-                                  value={input.CP}
-                                  validateButtonState={ validateFieldsToEnableButton }
-                                  isRequired={false}
+                                placeholder={'CP'}
+                                maxLength={6}
+                                keyboardType={'number-pad'}
+                                isMultiline={false}
+                                width={null}
+                                validateTextInput={validateTextInput}
+                                value={input.CP}
+                                validateButtonState={ validateFieldsToEnableButton }
+                                isRequired={false}
+                                isPublicationEdit= { edit }
+                                publicationDetail={publicationDetails?.postalCode}
                                 />
                         </View>
                     </View>
@@ -114,6 +127,8 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                                 value={ input.Description }
                                 validateButtonState={ validateFieldsToEnableButton }
                                 isRequired={true}
+                                isPublicationEdit= { edit }
+                                publicationDetail={publicationDetails?.description}
                             />
                         </View>
 
@@ -121,6 +136,8 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                             <CustomDateTimePicker
                                 setDatePicker={ setDatePicker }
                                 setTimePicker={ setTimePicker }
+                                isPublicationEdit= { edit }
+                                publicationDetail={[publicationDetails?.eventDate, publicationDetails?.eventTime]}
                             />
                         </View>
 
@@ -134,19 +151,22 @@ export const CreatePublicationForm = ({onNavigateToBack}: Props) => {
                             </View>
 
                             <View>
+                                {/* ACA DEBERIA FILTRAR QUE OPCION ES ASI SE ACTIVA LA CORRECTA */}
                                 <CheckboxCreatePost
                                     title="Artist / Band / Place"
-                                    checkboxSelected = { checkboxSelected.search }
+                                    checkboxSelected = { publicationDetails?.eventType == 'search' ? true : checkboxSelected.search }
                                     setSelection = { setEnableCheckbox }
                                     checkboxType={'search'}
+                                    isPublicationEdit={edit}
                                 />
                             </View>
                             <View>
                                 <CheckboxCreatePost
                                     title="Just advertising"
-                                    checkboxSelected = { checkboxSelected.advertising }
+                                    checkboxSelected = { publicationDetails?.eventType == 'advertising' ? true : checkboxSelected.advertising }
                                     setSelection = { setEnableCheckbox }
                                     checkboxType={'advertising'}
+                                    isPublicationEdit={edit}
                                 />
                             </View>
                         </View>
