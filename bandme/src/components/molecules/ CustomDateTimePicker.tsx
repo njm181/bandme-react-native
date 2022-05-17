@@ -14,7 +14,7 @@ interface Props {
   publicationDetail?: (string | undefined)[];
 }
 
-export const CustomDateTimePicker = ({ setDatePicker, setTimePicker, isPublicationEdit = false, publicationDetail = null }: Props) => {
+export const CustomDateTimePicker = ({ setDatePicker, setTimePicker, isPublicationEdit = false, publicationDetail = [''] }: Props) => {
 
     const [dateNow, setDate] = useState(new Date());
     const [displayMode, setDisplayMode] = useState<any>('date');
@@ -87,7 +87,7 @@ export const CustomDateTimePicker = ({ setDatePicker, setTimePicker, isPublicati
                 {
                   //  REVISAR PARA ACTUALIZAR AL NUEVO ESTADO QUE SE SELECCIONE
                   isPublicationEdit ?
-                    publicationDetail[0]
+                  getEventDate.length > 1 ? getEventDate : publicationDetail[0]
                   :
                   getEventDate.length > 1 ? getEventDate : 'Event Date'
                 }
@@ -104,7 +104,7 @@ export const CustomDateTimePicker = ({ setDatePicker, setTimePicker, isPublicati
                 {
                   //  REVISAR PARA ACTUALIZAR AL NUEVO ESTADO QUE SE SELECCIONE
                   isPublicationEdit ? 
-                    publicationDetail[1]
+                  getEventTime.length > 1 ? getEventTime : publicationDetail[1]
                     :
                     getEventTime.length > 1 ? getEventTime : 'Event Time'
                 }

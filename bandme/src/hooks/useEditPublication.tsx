@@ -17,7 +17,7 @@ export const useEditPublication = (navigation: StackNavigationProp<RootStackPara
             description: 'Este es un evento de prueba para verificar que se puede editar un evento sin problemas con una descripcion bastante larga y los elementos continuan funcionando correctamente sin problema alguno y ya no se que mas escribir en esta descripcion',
             eventDate: '13 May 2022',
             eventTime: '22:30',
-            eventType: 'search', //'  advertising
+            eventType: 'advertising', //'   search
         };
         goToEditPublication(publicationDetail);
     };

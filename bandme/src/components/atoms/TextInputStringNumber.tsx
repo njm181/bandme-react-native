@@ -18,7 +18,9 @@ interface Props {
   publicationDetail?: string;
 }
 
-export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardType, isMultiline, width, validateTextInput, isRequired = false, validateButtonState, isPublicationEdit = false, publicationDetail }: Props) => {
+export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardType, 
+                                        isMultiline, width, validateTextInput, isRequired = false,
+                                        validateButtonState, isPublicationEdit = false, publicationDetail }: Props) => {
 
     const [text, onChangeText] = useState('');
 
@@ -40,7 +42,7 @@ export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardTy
           onChangeText={ (inputText) =>
              {
               console.log('placeholder: ' + placeholder + '// texto ingresado: ' + inputText)
-              onChangeText(inputText);
+              isPublicationEdit ? onChangeTextEditPublication(inputText) : onChangeText(inputText);
               validateTextInput(inputText, placeholder)
               console.log('TEXTO INGRESADO: ' + inputText);
               isRequired ?

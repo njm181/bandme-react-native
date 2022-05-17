@@ -1,3 +1,4 @@
+/* eslint-disable no-undef-init */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 import { RouteProp } from '@react-navigation/native';
@@ -8,14 +9,12 @@ import { useCreatePost } from '../../hooks/useCreatePost';
 import { useValidateCheckbox } from '../../hooks/useValidateCheckbox';
 import { useValidateCreatePostButton } from '../../hooks/useValidateCreatePostButton';
 import { useValidateTextInput } from '../../hooks/useValidateTextInput';
-import { PublicationDetail } from '../../interfaces/PublicationDetail';
 import { RootStackParams } from '../../navigation/Navigator';
 import { ButtonPrimary } from '../atoms/ButtonPrimary';
 import { CheckboxCreatePost } from '../atoms/CheckboxCreatePost';
 import { TextInputStringNumber } from '../atoms/TextInputStringNumber';
 import { TextTitle } from '../atoms/TextTitle';
 import { CustomDateTimePicker } from '../molecules/ CustomDateTimePicker';
-import { ButtonBack } from '../molecules/ButtonBack';
 
 interface Props {
     onNavigateToBack: () => void;
@@ -29,6 +28,43 @@ export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
     const { validateTextInput, input } = useValidateTextInput();
     const { validateFieldsToEnableButton, isEnableButton } = useValidateCreatePostButton();
     const { validateFields, setDatePicker, getEventDate, setTimePicker, getEventTime } = useCreatePost();
+
+    var hardcordedaDeEvento = undefined;
+
+    const editCheckbox = () =>  {
+        hardcordedaDeEvento = publicationDetails?.eventType;
+
+        console.log('EVENT TYPE antes: ' + hardcordedaDeEvento)
+        if (edit) {
+            if (hardcordedaDeEvento == 'search') {
+                checkboxSelected.search = true;
+                checkboxSelected.advertising = false;
+            } else {
+                checkboxSelected.search = false;
+                checkboxSelected.advertising = true;
+            }
+        } else {
+            null;
+        }
+        
+        if(hardcordedaDeEvento == 'search'){
+            hardcordedaDeEvento = 'advertising'
+        } else {
+            hardcordedaDeEvento = 'search'
+        }
+        console.log('EVENT TYPE despues: ' + hardcordedaDeEvento)
+    };
+
+    const isCheckboxEdit = (type: string): boolean => {
+        switch (type) {
+            case 'search':
+                return true;
+            case 'advertising':
+                return true;
+            default:
+                return false;
+        }
+    };
 
   return (
     //FALTA CARGAR FOTO DE EVENTO DESDE LA GALERIA DEL CELULAR
@@ -152,21 +188,25 @@ export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
 
                             <View>
                                 {/* ACA DEBERIA FILTRAR QUE OPCION ES ASI SE ACTIVA LA CORRECTA */}
+                                {
+                                   editCheckbox()
+
+                                }
                                 <CheckboxCreatePost
                                     title="Artist / Band / Place"
-                                    checkboxSelected = { publicationDetails?.eventType == 'search' ? true : checkboxSelected.search }
+                                    checkboxSelected = { checkboxSelected.search }
                                     setSelection = { setEnableCheckbox }
                                     checkboxType={'search'}
-                                    isPublicationEdit={edit}
+                                    isEdit= { edit ? isCheckboxEdit('search') : false }
                                 />
                             </View>
                             <View>
                                 <CheckboxCreatePost
                                     title="Just advertising"
-                                    checkboxSelected = { publicationDetails?.eventType == 'advertising' ? true : checkboxSelected.advertising }
+                                    checkboxSelected = { checkboxSelected.advertising }
                                     setSelection = { setEnableCheckbox }
                                     checkboxType={'advertising'}
-                                    isPublicationEdit={edit}
+                                    isEdit={ edit ? isCheckboxEdit('advertising') : false }
                                 />
                             </View>
                         </View>
