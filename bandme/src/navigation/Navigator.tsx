@@ -25,7 +25,7 @@ export type RootStackParams = {
   DashboardScreen: String;
   ProfileScreen: undefined;
   PublicationDetailScreen: undefined;
-  CreateEditPublicationScreen: undefined | PublicationDetail;
+  CreateEditPublicationScreen: undefined|PublicationDetail;
   NotificationCenterScreen: undefined;
   Tabs: undefined;
 }

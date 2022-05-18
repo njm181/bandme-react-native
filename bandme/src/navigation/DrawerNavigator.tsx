@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
+/*
 import React from 'react';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import { NotificationCenterScreen } from '../screens/notification/NotificationCenterScreen';
@@ -92,3 +91,4 @@ const MenuInterno = ( { navigation }: DrawerContentComponentProps<DrawerContentO
   )
 }
 
+ */

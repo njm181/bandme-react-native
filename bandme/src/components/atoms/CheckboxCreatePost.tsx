@@ -8,13 +8,15 @@ interface Props {
   setSelection: (isSelected: boolean, checkboxType: string) => void;
   checkboxSelected: boolean;
   checkboxType: string;
-  isEdit: boolean;
 }
 
-export const CheckboxCreatePost = ({ title, setSelection, checkboxSelected, checkboxType, isEdit }: Props) => {
+export const CheckboxCreatePost = ({ title, setSelection, checkboxSelected, checkboxType }: Props) => {
 
   //const { setDatetimePicked } = useValidateDateTimePicker();
-
+  function ver () {
+    console.log('valor para el checkbox: ' + checkboxSelected);
+  }
+  ver();
   return (
     <CheckBox
         containerStyle={{backgroundColor: 'transparent', borderColor: 'transparent'}}
@@ -28,8 +30,8 @@ export const CheckboxCreatePost = ({ title, setSelection, checkboxSelected, chec
           /* isEdit ?
             console.log('valor para editar: type : ' + checkboxType + ' / valor: ' + checkboxSelected + '/ nuevo valor: ' + !checkboxSelected)
             : */
-            console.log('type : ' + checkboxType + ' / valor: ' + !checkboxSelected);
 
+            console.log('type : ' + checkboxType + ' / valor: ' + !checkboxSelected);
             setSelection(!checkboxSelected, checkboxType);
         }
       }
