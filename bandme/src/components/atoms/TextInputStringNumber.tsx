@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react'
 import { KeyboardTypeOptions, StyleSheet, TextInput, View } from 'react-native';
+import { useGetEditFieldsPublication } from '../../hooks/useGetEditFieldsPublication';
 
 interface Props {
   placeholder: string;
@@ -26,6 +27,9 @@ export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardTy
 
     const [textEditPublication, onChangeTextEditPublication] = useState(publicationDetail?.toString());
 
+    const { setFieldsEditPublication } = useGetEditFieldsPublication();
+
+
     /* const [number, onChangeNumber] = React.useState(null); */
     const [focus, setFocus] = useState(false);
 
@@ -43,6 +47,7 @@ export const TextInputStringNumber = ({ placeholder, maxLength = 200, keyboardTy
              {
               console.log('placeholder: ' + placeholder + '// texto ingresado: ' + inputText)
               isPublicationEdit ? onChangeTextEditPublication(inputText) : onChangeText(inputText);
+              //isPublicationEdit ? setFieldsEditPublication(placeholder, inputText) : null;
               validateTextInput(inputText, placeholder)
               console.log('TEXTO INGRESADO: ' + inputText);
               isRequired ?

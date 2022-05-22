@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-undef-init */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
@@ -25,12 +26,10 @@ export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
     const edit = true;
     const publicationDetails = route.params;
     console.log('detalles: ' + JSON.stringify(publicationDetails));
-
     const { setEnableCheckbox, checkboxSelected, checkboxValidate } = useValidateCheckbox();
     const { validateTextInput, input } = useValidateTextInput();
     const { validateFieldsToEnableButton, isEnableButton } = useValidateCreatePostButton();
     const { validateFields, setDatePicker, getEventDate, setTimePicker, getEventTime } = useCreatePost();
-
 
     const validateCheckboxSelected = (type: string): boolean => {
         let result = false;
@@ -48,6 +47,69 @@ export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
         return result;
     };
 
+    const validateEnableButton = (): boolean => {
+        if (edit){
+            if (
+                input.Title == '' &&  input.Description == '' && checkboxSelected.search == false && checkboxSelected.advertising == false
+                ||
+                publicationDetails?.title == '' && publicationDetails?.description == '' &&  publicationDetails?.eventType == ''
+            ) {
+                console.log('*****entro por el if que devuelve true***');
+                return true;
+            } else {
+                console.log('*****entro por el if que devuelve false***');
+                return false;
+            }
+        } else {
+            return isEnableButton.Description && isEnableButton.Title && checkboxValidate() ? false : true;
+        }
+    };
+
+
+    const finalizeEditPublication = () => {
+        if (edit){
+            if (input.Title != ''){
+                console.log('como se edito el campo uso ese valor: ' + input.Title);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.title);
+            }
+            if (input.Calle != ''){
+                console.log('como se edito el campo uso ese valor: ' + input.Calle);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.street);
+            }
+            if (input.Altura != ''){
+                console.log('como se edito el campo uso ese valor: ' + input.Altura);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.streetNumber);
+            }
+            if (input.CP != ''){
+                console.log('como se edito el campo uso ese valor: ' + input.CP);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.postalCode);
+            }
+            if (input.Description != ''){
+                console.log('como se edito el campo uso ese valor: ' + input.Description);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.description);
+            }
+            if (getEventDate != ''){
+                console.log('como se edito el campo uso ese valor: ' + getEventDate);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.eventDate);
+            } if (getEventTime != ''){
+                console.log('como se edito el campo uso ese valor: ' + getEventTime);
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.eventTime);
+            } if (checkboxSelected.search || checkboxSelected.advertising){
+                console.log('como se edito el campo uso ese valor: ' + JSON.stringify(checkboxSelected));
+            } else {
+                console.log('como no se edito este campo se usa details: ' + publicationDetails?.eventType);
+            }
+        }
+    };
+
+    //finalizeEditPublication();
 
   return (
     //FALTA CARGAR FOTO DE EVENTO DESDE LA GALERIA DEL CELULAR
@@ -191,22 +253,26 @@ export const CreatePublicationForm = ({onNavigateToBack, route}: Props) => {
 
             <View style={{justifyContent: 'flex-end'}}>
                 <ButtonPrimary
-                    title={'Create'}
+                    title={ edit ? 'Edit' : 'Create'}
                     clickAction={ () =>
-                        validateFields(
-                            input.Title,
-                            input.Calle,
-                            input.Altura,
-                            input.CP,
-                            input.Description,
-                            getEventDate,
-                            getEventTime,
-                            checkboxSelected,
-                        )
+                        {
+                            !edit ? validateFields(
+                                input.Title,
+                                input.Calle,
+                                input.Altura,
+                                input.CP,
+                                input.Description,
+                                getEventDate,
+                                getEventTime,
+                                checkboxSelected,
+                            ) :
+                        finalizeEditPublication();
+                        console.log('estas editando');
+                    }
                     }
                     width={'100%'}
                     isDisabled= {
-                        isEnableButton.Description && isEnableButton.Title && checkboxValidate() ? false : true
+                        validateEnableButton()
                     }
                 />
             </View>

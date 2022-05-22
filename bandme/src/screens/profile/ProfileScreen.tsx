@@ -134,15 +134,15 @@ export const ProfileScreen = ({navigation}: Props) => {
                     >
                         <Image
                             style={{
-                                width: 70,
-                                height: 70,
+                                width: 50,
+                                height: 50,
                             }}
                             source={{uri:'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/v1440924046/wi1mlnkbn2jluko8pzkj.png'}}
                         />
 
                         <Text
                             style={{
-                                fontSize: 24,
+                                fontSize: 18,
                                 marginTop: 8,
                             }}
                         >
@@ -190,7 +190,7 @@ export const ProfileScreen = ({navigation}: Props) => {
                 <View
                     style={{
                         width: '90%',
-                        height: 100,
+                        height: 80,
                         position: 'absolute',
                         alignSelf: 'center',
                         bottom: 0,
