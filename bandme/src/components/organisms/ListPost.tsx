@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { Post } from '../molecules/Post';
 
 interface Props {
@@ -9,6 +9,16 @@ interface Props {
 }
 
 export const ListPost = ({ onNavigate }: Props) => {
+
+  const wait = (timeout: number) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      wait(2000).then(() => setRefreshing(false));
+    }, []);
 
   const DATA = [
           {
@@ -66,6 +76,13 @@ export const ListPost = ({ onNavigate }: Props) => {
           keyExtractor={(item) => item.id.toString()}
           showsVerticalScrollIndicator = {false}
           pagingEnabled={true}
+          refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={['#ff8f00']}
+            />
+          }
         />
   );
 };
