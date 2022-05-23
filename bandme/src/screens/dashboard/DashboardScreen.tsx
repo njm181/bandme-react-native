@@ -16,6 +16,7 @@ interface Props extends StackScreenProps<RootStackParams, 'DashboardScreen'> {}
 
 export const DashboardScreen = ({navigation}: Props) => {
 
+    //use effect para cargar los posteos la primera vez
     const wait = (timeout: number) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     };

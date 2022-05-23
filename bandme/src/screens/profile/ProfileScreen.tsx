@@ -12,10 +12,13 @@ import { RootStackParams } from '../../navigation/Navigator';
 import { StackScreenProps } from '@react-navigation/stack';
 import { EditProfileModal } from '../../components/organisms/EditProfileModal';
 import { useEditPublication } from '../../hooks/useEditPublication';
+import { useOpenSocialMedia } from '../../hooks/useOpenSocialMedia';
 
 interface Props extends StackScreenProps<RootStackParams, 'ProfileScreen'> {}
 
 export const ProfileScreen = ({navigation}: Props) => {
+
+    const { openSocialMedia } = useOpenSocialMedia();
 
     const { getPublicationDetails } = useEditPublication(navigation);
 
@@ -157,7 +160,12 @@ export const ProfileScreen = ({navigation}: Props) => {
                     >
                         <TouchableOpacity
                             activeOpacity={0.60}
-                            onPress={ () => console.log('click en boton spotify') }
+                            onPress={ () => {
+                                console.log('click en boton spotify');
+                                //infoDelPerfil.getSpotify
+                                openSocialMedia('https://open.spotify.com/user/31w6ww2bdpmvafqlkwimbst6ri3m?si=eb9afea1078d484a', 'spotify');
+                            }
+                         }
                         >
                             <Image
                             source={require('../../assets/spotify.png')}
@@ -167,7 +175,12 @@ export const ProfileScreen = ({navigation}: Props) => {
 
                         <TouchableOpacity
                             activeOpacity={0.60}
-                            onPress={ () => console.log('click en boton instagram') }
+                            onPress={ () => {
+                                console.log('click en boton instagram');
+                                //infoDelPerfil.getSpotify
+                                openSocialMedia('https://www.instagram.com/elonofficiall/?hl=es', 'instagram');
+                            }
+                         }
                         >
                             <Image
                             source={require('../../assets/instagram.png')}
@@ -177,7 +190,12 @@ export const ProfileScreen = ({navigation}: Props) => {
 
                         <TouchableOpacity
                             activeOpacity={0.60}
-                            onPress={ () => console.log('click en boton youtube') }
+                            onPress={ () => {
+                                console.log('click en boton youtube');
+                                //infoDelPerfil.getSpotify
+                                openSocialMedia('https://www.youtube.com/channel/UC2poaJIrBjak9vC_NpGx6hQ', 'youtube');
+                            }
+                         }
                         >
                             <Image
                             source={require('../../assets/youtube.png')}
