@@ -2,11 +2,15 @@
 /* eslint-disable no-trailing-spaces */
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useEventGeolocation } from '../../hooks/useEventGeolocation';
 import { Publication } from '../../interfaces/Publication';
 import { ButtonIconProfile } from '../atoms/ButtonIconProfile';
 import { TextTitle } from '../atoms/TextTitle';
 import { DetailsButtons } from './DetailsButtons';
+import { createMapLink, createOpenLink } from 'react-native-open-maps';
+
 
 interface Props{
     onNavigateGoToProfile: () => void;
@@ -14,13 +18,19 @@ interface Props{
 }
 
 export const PublicationDetailCard = ({onNavigateGoToProfile, publication}: Props) => {
+
+    const { openMapEventAddress } = useEventGeolocation();
+
+    const openFacebookHQ = createMapLink({ provider: 'google', end: 'New York City, NY' })
+
+
   return (
           
     <View style={ styles.mainContainer }>
 
         <ScrollView>
             
-                <View style={{alignSelf: 'flex-start', marginVertical: 16}}>
+                <View style={{alignSelf: 'flex-start', marginVertical: 10}}>
                     <TextTitle
                         title={'Titulo de la publicacion'}
                         size={25}
@@ -42,15 +52,25 @@ export const PublicationDetailCard = ({onNavigateGoToProfile, publication}: Prop
                     </View>
 
                     <View style={ styles.dateContainer }>
-                        <Icon
-                            name="location"
-                            style={{ marginEnd: 4 }}
-                            size={15}
-                        />
-                        <TextTitle
-                            title={'Beiro 3033, Villa Devoto, CABA'}
-                            size={15}
-                            colour={'black'}/>
+                        <TouchableOpacity
+                            style={{flexDirection: 'row'}}
+                            onPress={ () => {
+                                console.log('click en location');
+                                openMapEventAddress(0, 0);
+
+                            }
+                        }
+                        >
+                            <Icon
+                                name="location"
+                                style={{ marginEnd: 4 }}
+                                size={15}
+                            />
+                            <TextTitle
+                                title={'Beiro 3033, Villa Devoto, CABA'}
+                                size={15}
+                                colour={'black'}/>
+                        </TouchableOpacity>
                     </View>
 
                     <View

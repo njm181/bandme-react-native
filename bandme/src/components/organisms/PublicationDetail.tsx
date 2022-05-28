@@ -35,6 +35,7 @@ export const PublicationDetail = ({onNavigate}: Props) => {
 
             <PublicationDetailCard
               onNavigateGoToProfile={onNavigate.goToProfile}
+              //publication={}
             />
 
         </View>
