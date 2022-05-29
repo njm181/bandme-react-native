@@ -39,7 +39,7 @@ export const PremiumScreen = () => {
                 ARS $99.95
               </Text>
               <Text
-                style={{textAlign:'center', fontSize: 12}}
+                style={{textAlign:'center', fontSize: 12, marginBottom: 10}}
               >
                 Per month
               </Text>
@@ -64,7 +64,7 @@ export const PremiumScreen = () => {
                 />
                 <Text style={{fontSize: 16}}>Description about feature premium one</Text>
               </View>
-              <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 8}}>
+              <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 8}}>
               <Image
                   style={{alignSelf: 'center', marginEnd: 8}}
                   source={require('../../assets/green_checked_32.png')}
