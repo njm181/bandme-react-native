@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "330874640511",
+    "project_id": "bandme-e3fb4",
+    "storage_bucket": "bandme-e3fb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330874640511:android:f4abb595edc90e9579874a",
+        "android_client_info": {
+          "package_name": "com.bandme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330874640511-o3anhouh3236r3sk9sm9d2vsbilo9f5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bandme",
+            "certificate_hash": "b2827f570aca21062f95a9eee06f42d3c01b193a"
+          }
+        },
+        {
+          "client_id": "330874640511-fhj19olju237ipemha31960hq1in7vet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL_unGnrhI2mYgvaE41N3kUTr2KcC_v4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330874640511-fhj19olju237ipemha31960hq1in7vet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
